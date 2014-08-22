@@ -1,0 +1,68 @@
+<?php namespace Antoineaugusti\LaravelEasyrec;
+
+use GuzzleHttp\Client;
+use GuzzleHttp\Adapter\MockAdapter;
+use GuzzleHttp\Adapter\TransactionInterface;
+use GuzzleHttp\Message\Response;
+use \PHPUnit_Framework_TestCase;
+
+// Overwrite the session_id function from PHP
+function session_id()
+{
+	return 42;
+}
+
+class EasryrecTest extends PHPUnit_Framework_TestCase {
+
+	public $config;
+	const ITEM_ID = 1337;
+	const ITEM_DESCRIPTION = "mock-description";
+	const ITEM_URL = "mock-url";
+
+
+	public function setUp()
+	{
+		$config = [
+			'baseURL'    => 'mock-url',
+			'apiVersion' => '1.0',
+			'apiKey'     => 'mock-key',
+			'tenantID'   => 'mock-tenant'
+		];
+
+		$this->easyrec = new Easyrec($config);
+
+		// Always return a 200 OK response
+		$mockAdapter = new MockAdapter(function (TransactionInterface $trans) {
+			$request = $trans->getRequest();
+			return new Response(200);
+		});
+
+		// Replace the HTTP client
+		$client = new Client(['adapter' => $mockAdapter, 'base_url' => $this->easyrec->getBaseURL()]);
+		$this->easyrec->setHttpClient($client);
+	}
+
+	public function testBaseURL()
+	{
+		$this->assertEquals('mock-url/api/1.0/json/', $this->easyrec->getBaseURL());
+	}
+
+	public function testView()
+	{
+		$this->easyrec->view(self::ITEM_ID, self::ITEM_DESCRIPTION, self::ITEM_URL);
+
+		// Test required keys
+		$requiredKeys = ['itemid', 'itemdescription', 'itemurl', 'sessionid'];
+		$queryParams = $this->easyrec->getQueryParams();
+		foreach ($requiredKeys as $key)
+			$this->assertArrayHasKey($key, $queryParams);
+
+		// Test values in the request
+		$this->assertEquals($queryParams["apikey"], "mock-key");
+		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
+		$this->assertEquals($queryParams["sessionid"], 42);
+		$this->assertEquals($queryParams["itemid"], self::ITEM_ID);
+		$this->assertEquals($queryParams["itemdescription"], self::ITEM_DESCRIPTION);
+		$this->assertEquals($queryParams["itemurl"], self::ITEM_URL);
+	}
+}
