@@ -6,17 +6,24 @@ use GuzzleHttp\Client as HTTPClient;
 class Easyrec {
 
 	private $config;
+	private $httpClient;
+	private $queryParams;
 
 	public function __construct($config)
 	{	
 		$this->config = $config;
-		$this->httpClient = new HTTPClient(['base_url' => $this->getBaseURL()]);
+		$this->setHttpClient(new HTTPClient(['base_url' => $this->getBaseURL()]));
 		
 		// Set API key and tenantID
 		$this->queryParams = [
 			'apikey'   => $config['apiKey'],
 			'tenantid' => $config['tenantID'],
 		];
+	}
+
+	public function setHttpClient($object)
+	{
+		$this->httpClient = $object;
 	}
 
 	public function getBaseURL()
@@ -28,21 +35,24 @@ class Easyrec {
 	* ACTIONS 
 	* --------------------
 	*/
-	public function view($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionID = null)
+	public function view($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
 	{
-		if (is_null($sessionID))
-			$sessionID = session_id();
+		if (is_null($sessionid))
+			$sessionid = session_id();
 
-		foreach (['userid', 'sessionid', 'itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'actiontime', 'itemtype'] as $param)
-			$this->setQueryParam($param);
+		foreach (['userid', 'sessionid', 'itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'actiontime', 'itemtype'] as $param) {
+			// $this->setQueryParam($param);
+			if (!is_null($$param))
+			$this->queryParams[$param] = $$param;
+		}
 
 		return $this->sendRequest('view');
 	}
 
-	public function buy($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionID = null)
+	public function buy($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
 	{
-		if (is_null($sessionID))
-			$sessionID = session_id();
+		if (is_null($sessionid))
+			$sessionid = session_id();
 
 		foreach (['userid', 'sessionid', 'itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'actiontime', 'itemtype'] as $param)
 			$this->setQueryParam($param);
@@ -50,10 +60,10 @@ class Easyrec {
 		return $this->sendRequest('buy');
 	}
 
-	public function rate($itemid, $ratingvalue, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionID = null)
+	public function rate($itemid, $ratingvalue, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
 	{
-		if (is_null($sessionID))
-			$sessionID = session_id();
+		if (is_null($sessionid))
+			$sessionid = session_id();
 
 		foreach (['userid', 'ratingvalue', 'sessionid', 'itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'actiontime', 'itemtype'] as $param)
 			$this->setQueryParam($param);
@@ -71,6 +81,11 @@ class Easyrec {
 			$this->setQueryParam($param);
 		
 		return $this->sendRequest('otherusersalsoviewed');
+	}
+
+	public function getQueryParams()
+	{
+		return $this->queryParams;
 	}
 
 	/**
