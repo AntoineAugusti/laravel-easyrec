@@ -24,12 +24,10 @@ class Easyrec {
 		return $this->config['baseURL'].'/api/'.$this->config['apiVersion'].'/json/';
 	}
 
-	private function setQueryParam($param)
-	{
-		if (!is_null($$param))
-			$this->queryParams[$param] = $$param;
-	}
-
+	/*
+	* ACTIONS 
+	* --------------------
+	*/
 	public function view($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionID = null)
 	{
 		if (is_null($sessionID))
@@ -63,6 +61,10 @@ class Easyrec {
 		return $this->sendRequest('buy');
 	}
 
+	/*
+	* RECOMMENDATIONS 
+	* --------------------
+	*/
 	public function alsoViewed($itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = null)
 	{
 		foreach (['itemid', 'userid', 'numberOfResults', 'itemtype', 'requesteditemtype', 'withProfile'] as $param)
@@ -72,7 +74,7 @@ class Easyrec {
 	}
 
 	/**
-	 * Send a request to the an API endpoint
+	 * Send a request to an API endpoint
 	 * @param  string $endpoint The endpoint name
 	 * @return array The decoded JSON array
 	 */
@@ -86,5 +88,16 @@ class Easyrec {
 
 		// Parse JSON and returns an array
 		return $response->json();
+	}
+
+	/**
+	 * Set a GET parameter
+	 * @param string $param The name of the parameter to set. Must be the name of a PHP variable
+	 */
+	private function setQueryParam($param)
+	{
+		// Do not set value if it was null because it was optional
+		if (!is_null($$param))
+			$this->queryParams[$param] = $$param;
 	}
 }
