@@ -63,7 +63,7 @@ The following variables are common to the actions methods.
 #### View
 This action should be raised if a user views an item.
 ##### Function signature
-`view($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)`
+`Easyrec::view($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)`
 
 ##### Parameters
 Non-null variables in the function signature are required.
@@ -88,7 +88,7 @@ The response is displayed here as JSON but will be returned as a PHP array.
 #### Buy
 This action should be raised if a user buys an item.
 ##### Function signature
-`buy($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)`
+`Easyrec::buy($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)`
 
 ##### Parameters
 Non-null variables in the function signature are required.
@@ -113,7 +113,7 @@ The response is displayed here as JSON but will be returned as a PHP array.
 #### Rate
 This action should be raised if a user rates an item.
 ##### Function signature
-`rate($itemid, $ratingvalue, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)`
+`Easyrec::rate($itemid, $ratingvalue, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)`
 
 ##### Parameters
 Non-null variables in the function signature are required. The rating value is an additional parameter.
