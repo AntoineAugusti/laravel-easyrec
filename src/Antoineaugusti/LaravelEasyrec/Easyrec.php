@@ -104,16 +104,25 @@ class Easyrec {
 		return $this->sendRequest($endpoint);
 	}
 
+	/**
+	 * @see abstractRecommendationEndpoint
+	 */
 	public function usersAlsoViewed($itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = false)
 	{	
 		return $this->abstractRecommendationEndpoint('otherusersalsoviewed', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
 	}
 
+	/**
+	 * @see abstractRecommendationEndpoint
+	 */
 	public function usersAlsoBought($itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = false)
 	{
 		return $this->abstractRecommendationEndpoint('otherusersalsobought', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
 	}
 
+	/**
+	 * @see abstractRecommendationEndpoint
+	 */
 	public function ratedGoodByOther($itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = false)
 	{
 		return $this->abstractRecommendationEndpoint('itemsratedgoodbyotherusers', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
@@ -176,26 +185,41 @@ class Easyrec {
 		return $this->sendRequest($endpoint);
 	}
 
+	/**
+	 * @see abstractCommunityEndpoint
+	 */
 	public function mostViewedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
 	{
 		return $this->abstractCommunityEndpoint('mostvieweditems', $numberOfResults, $timeRange, $requesteditemtype, $withProfile);
 	}
 
+	/**
+	 * @see abstractCommunityEndpoint
+	 */
 	public function mostBoughtItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
 	{
 		return $this->abstractCommunityEndpoint('mostboughtitems', $numberOfResults, $timeRange, $requesteditemtype, $withProfile);
 	}
 
+	/**
+	 * @see abstractCommunityEndpoint
+	 */
 	public function mostRatedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
 	{
 		return $this->abstractCommunityEndpoint('mostrateditems', $numberOfResults, $timeRange, $requesteditemtype, $withProfile);
 	}
 
+	/**
+	 * @see abstractCommunityEndpoint
+	 */
 	public function bestRatedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
 	{
 		return $this->abstractCommunityEndpoint('bestrateditems', $numberOfResults, $timeRange, $requesteditemtype, $withProfile);
 	}
 
+	/**
+	 * @see abstractCommunityEndpoint
+	 */
 	public function worstRatedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
 	{
 		return $this->abstractCommunityEndpoint('worstrateditems', $numberOfResults, $timeRange, $requesteditemtype, $withProfile);
