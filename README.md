@@ -66,23 +66,23 @@ This action should be raised if a user views an item.
 `Easyrec::view($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)`
 
 ##### Parameters
-Non-null variables in the function signature are required.
+Non-null variables .
 
 ##### Example response.
 The response is displayed here as JSON but will be returned as a PHP array.
-```json
-{
+```
+[
 	"action": "view",
 	"tenantid": "EASYREC_DEMO",
 	"userid": "24EH1723322222A3",
 	"sessionid": "F3D4E3BE31EE3FA069F5434DB7EC2E34",
-	"item": {
+	"item": [
 	  "id": "42",
 	  "itemType": "ITEM",
 	  "description": "Fatboy Slim - The Rockafeller Skank",
 	  "url": "/item/fatboyslim"
-	}
-}
+	]
+]
 ```
 
 #### Buy
@@ -94,20 +94,20 @@ This action should be raised if a user buys an item.
 Non-null variables in the function signature are required.
 
 ##### Example response.
-The response is displayed here as JSON but will be returned as a PHP array.
-```json
-{
+The response will be returned as a PHP array.
+```
+[
 	"tenantid": "EASYREC_DEMO",
 	"action": "buy",
 	"userid": "24EH1723322222A3",
 	"sessionid": "F3D4E3BE31EE3FA069F5434DB7EC2E34",
-	"item": {
+	"item": [
 	  "id": "42",
 	  "type": "ITEM",
 	  "description": "Fatboy Slim - The Rockafeller Skank",
 	  "url": "/item/fatboyslim"
-	}
-}
+	]
+]
 ```
 
 #### Rate
@@ -120,19 +120,19 @@ Non-null variables in the function signature are required. The rating value is a
 - `$ratingvalue`: the rating value of the item. Must be an integer in the range from 1 to 10.
 
 ##### Example response.
-The response is displayed here as JSON but will be returned as a PHP array.
-```json
-{
+The response will be returned as a PHP array.
+```
+[
 	"tenantid": "rate",
 	"action": "rate",
 	"userid": "24EH1723322222A3",
 	"sessionid": "F3D4E3BE31EE3FA069F5434DB7EC2E34",
-	"item": {
+	"item": [
 	  "id": "42",
 	  "type": "ITEM",
 	  "description": "Fatboy Slim - The Rockafeller Skank",
 	  "ratingValue": "10",
 	  "url": "/item/fatboyslim"
-	}
-}
+	]
+]
 ```
