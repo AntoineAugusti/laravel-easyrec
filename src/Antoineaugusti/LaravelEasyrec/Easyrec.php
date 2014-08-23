@@ -60,8 +60,8 @@ class Easyrec {
 	public function rate($itemid, $ratingvalue, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
 	{
 		// Check that the $ratingvalue as got the expected format
-		if (!is_numeric($ratingvalue) OR $ratingvalue > 10 OR $ratingvalue < 0)
-			throw new \InvalidArgumentException("The rating value should be between 0 and 10.", 1);
+		if (!is_numeric($ratingvalue) OR $ratingvalue > 10 OR $ratingvalue < 1)
+			throw new \InvalidArgumentException("The rating value should be between 1 and 10.", 1);
 			
 		if (is_null($sessionid))
 			$sessionid = session_id();
