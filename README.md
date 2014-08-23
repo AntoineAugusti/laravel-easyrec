@@ -136,3 +136,175 @@ The response will be returned as a PHP array.
 	]
 ]
 ```
+
+### Recommendations
+The following variables are common to the recommendations methods.
+
+##### Required parameters
+- `$itemid`: An item ID to identify an item on your website. Eg: "POST42"
+
+##### Optional parameters
+- `$userid`: A user ID. If this parameter is provided, items viewed by this user are suppressed.
+- `$numberOfResults`: determine the number of results returned. Must be an integer in the range from 1 to 15.
+- `$itemtype`: An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used.
+- `$requesteditemtype`: A type of an item (e.g. `IMAGE`, `VIDEO`, `BOOK`, etc.) to filter the returned items. If not supplied the default value `ITEM` will be used.
+- `$withProfile`: If this parameter is set to true the result contains an additional element `profileData` with the item profile. Default value to `false`.
+
+#### Users also viewed
+Users who viewed the specified item also viewed the returned items.
+##### Function signature
+`Easyrec::usersAlsoViewed($itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = false)`
+
+##### Parameters
+Non-null variables in the function signature are required.
+
+##### Example response.
+The response will be returned as a PHP array.
+```
+[
+	"tenantid": "EASYREC_DEMO",
+	"action": "otherUsersAlsoViewed",
+	"user": [
+		"id": "24EH1723322222A3"
+	],
+	"baseitem": [
+	  "item": [
+		"id": "42",
+		"type": "ITEM",
+		"description": "Fatboy Slim - The Rockafeller Skank",
+		"url": "/item/fatboyslim"
+	  ]
+	],
+	"recommendeditems": [
+	  "item": [
+		"id": "43",
+		"type": "ITEM",
+		"description": "Beastie Boys - Intergalactic",
+		"profileData": [
+			"profile":[
+				"year": "1990"
+			]
+		],
+		"url": "/item/beastieboys"
+	  ]
+	]
+]
+```
+
+#### Users also bought
+Users who bought the specified item also bought the returned items.
+##### Function signature
+`Easyrec::usersAlsoBought($itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = false)`
+
+##### Parameters
+Non-null variables in the function signature are required.
+
+##### Example response.
+The response will be returned as a PHP array.
+```
+[
+	"tenantid": "EASYREC_DEMO",
+	"action": "otherUsersAlsoBought",
+	"user": [
+		"id": "24EH1723322222A3"
+	],
+	"baseitem": [
+	  "item": [
+		"id": "42",
+		"type": "ITEM",
+		"description": "Fatboy Slim - The Rockafeller Skank",
+		"url": "/item/fatboyslim"
+	  ]
+	],
+	"recommendeditems": [
+	  "item": [
+		"id": "43",
+		"type": "ITEM",
+		"description": "Beastie Boys - Intergalactic",
+		"profileData": [
+			"profile":[
+				"year": "1990"
+			]
+		],
+		"url": "/item/beastieboys"
+	  ]
+	]
+]
+```
+
+#### Items rated good by other users
+Users who rated the specified item "good" did the same with items returned by this method.
+##### Function signature
+`Easyrec::ratedGoodByOther($itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = false)`
+
+##### Parameters
+Non-null variables in the function signature are required.
+
+##### Example response.
+The response will be returned as a PHP array.
+```
+[
+	"tenantid": "EASYREC_DEMO",
+	"action": "itemsRatedGoodByOtherUsers",
+	"user": [
+		"id": "24EH1723322222A3"
+	],
+	"baseitem": [
+	  "item": [
+		"id": "42",
+		"type": "ITEM",
+		"description": "Fatboy Slim - The Rockafeller Skank",
+		"url": "/item/fatboyslim"
+	  ]
+	],
+	"recommendeditems": [
+	  "item": [
+		"id": "43",
+		"type": "ITEM",
+		"description": "Beastie Boys - Intergalactic",
+		"profileData": [
+			"profile":[
+				"year": "1990"
+			]
+		],
+		"url": "/item/beastieboys"
+	  ]
+	]
+]
+```
+
+#### Recommendations for user
+Returns recommendations for a given user ID.
+##### Function signature
+`Easyrec::recommendationsForUser($userid, $numberOfResults = 10, $requesteditemtype = null, $actiontype = "VIEW", $withProfile = false)`
+
+##### Parameters
+Non-null variables in the function signature are required. There is an additional parameter
+- `$actiontype`: Allows to define which actions of a user are considered when creating the personalized recommendation. Valid values are: `VIEW`, `RATE`, `BUY`.
+
+##### Example response.
+The response will be returned as a PHP array.
+```
+[
+	"tenantid": "EASYREC_DEMO",
+	"action": "recommendationsForUser",
+	"user": [
+		"id": "24EH1723322222A3"
+	],
+	"recommendeditems": [
+	  "item": [
+		"id": "43",
+		"type": "ITEM",
+		"description": "Beastie Boys - Intergalactic",
+		"profileData": [
+			"profile":[
+				"year": "1990"
+			]
+		],
+		"url": "
+		  /item/beastieboys
+		"
+	  ]
+	]
+]
+```
