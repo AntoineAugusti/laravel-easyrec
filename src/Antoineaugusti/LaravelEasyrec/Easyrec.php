@@ -164,6 +164,8 @@ class Easyrec {
 	 * @param  string  $timeRange         An optional parameter to determine the time range. This parameter may be set to one of the following values: DAY, WEEK, MONTH, ALL.
 	 * @param  string  $requesteditemtype An optional item type that denotes the type of the item (e.g. IMAGE, VIDEO, BOOK, etc.). If not supplied the default value ITEM will be used.
 	 * @param  boolean $withProfile       If this parameter is set to true the result contains an additional element 'profileData' with the item profile.
+	 * @throws \InvalidArgumentException If the numberOfResults is negative or is not a number
+	 * @throws \InvalidArgumentException If timeRange is not in the supported values: DAY, WEEK, MONTH, ALL
 	 * @return array The JSON decoded response
 	 */
 	private function abstractCommunityEndpoint($endpoint, $numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
