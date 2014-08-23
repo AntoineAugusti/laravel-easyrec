@@ -307,11 +307,11 @@ class Easyrec {
 			$ids = [];			
 			foreach ($result['recommendeditems'] as $items) {
 				foreach ($items as $item) {
-					$ids[] = $item['id'];
+					$ids[] = intval($item['id']);
 				}
 			}
 
-			$result['listIDs'] = $ids;
+			$result['listids'] = $ids;
 		}
 
 		return $result;
