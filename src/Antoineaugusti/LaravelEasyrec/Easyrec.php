@@ -7,10 +7,12 @@ class Easyrec {
 	private $config;
 	private $httpClient;
 	private $queryParams;
+	private $endpoint;
 
 	public function __construct($config)
 	{	
 		$this->config = $config;
+		$this->endpoint = null;
 		// Register Guzzle
 		$this->setHttpClient(new HTTPClient(['base_url' => $this->getBaseURL()]));
 		
@@ -43,7 +45,10 @@ class Easyrec {
 		foreach (['userid', 'sessionid', 'itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'actiontime', 'itemtype'] as $param)
 			$this->setQueryParam($param, $$param);
 
-		return $this->sendRequest('view');
+		// Set the endpoint name and send the request
+		$this->setEndpoint('view');
+
+		return $this->sendRequest();
 	}
 
 	public function buy($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
@@ -54,7 +59,10 @@ class Easyrec {
 		foreach (['userid', 'sessionid', 'itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'actiontime', 'itemtype'] as $param)
 			$this->setQueryParam($param, $$param);
 
-		return $this->sendRequest('buy');
+		// Set the endpoint name and send the request
+		$this->setEndpoint('buy');
+
+		return $this->sendRequest();
 	}
 
 	public function rate($itemid, $ratingvalue, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
@@ -69,7 +77,10 @@ class Easyrec {
 		foreach (['userid', 'ratingvalue', 'sessionid', 'itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'actiontime', 'itemtype'] as $param)
 			$this->setQueryParam($param, $$param);
 
-		return $this->sendRequest('buy');
+		// Set the endpoint name and send the request
+		$this->setEndpoint('rate');
+
+		return $this->sendRequest();
 	}
 
 	/*
@@ -101,7 +112,10 @@ class Easyrec {
 		foreach (['itemid', 'userid', 'numberOfResults', 'itemtype', 'requesteditemtype', 'withProfile'] as $param)
 			$this->setQueryParam($param, $$param);
 		
-		return $this->sendRequest($endpoint);
+		// Set the endpoint name and send the request
+		$this->setEndpoint($endpoint);
+
+		return $this->sendRequest();
 	}
 
 	/**
@@ -149,7 +163,10 @@ class Easyrec {
 		foreach (['userid', 'numberOfResults', 'requesteditemtype', 'actiontype', 'withProfile'] as $param)
 			$this->setQueryParam($param, $$param);
 		
-		return $this->sendRequest('otherusersalsoviewed');
+		// Set the endpoint name and send the request
+		$this->setEndpoint('recommendationsforuser');
+		
+		return $this->sendRequest();
 	}
 
 	/*
@@ -184,7 +201,10 @@ class Easyrec {
 		foreach (['numberOfResults', 'timeRange', 'requesteditemtype', 'withProfile'] as $param)
 			$this->setQueryParam($param, $$param);
 		
-		return $this->sendRequest($endpoint);
+		// Set the endpoint name and send the request
+		$this->setEndpoint($endpoint);
+
+		return $this->sendRequest();
 	}
 
 	/**
@@ -227,18 +247,43 @@ class Easyrec {
 		return $this->abstractCommunityEndpoint('worstrateditems', $numberOfResults, $timeRange, $requesteditemtype, $withProfile);
 	}
 
+	/**
+	 * Returns the query parameters for the GET request
+	 * @return array The key value parameters
+	 */
 	public function getQueryParams()
 	{
 		return $this->queryParams;
 	}
 
 	/**
+	 * Set the endpoint name of the API
+	 * @param string $endpoint The endpoint name
+	 */
+	public function setEndpoint($endpoint)
+	{
+		$this->endpoint = $endpoint;
+	}
+
+	/**
+	 * Returns the endpoint name
+	 * @return string The endpoint name
+	 */
+	public function getEndpoint()
+	{
+		return $this->endpoint;
+	}
+
+	/**
 	 * Send a request to an API endpoint
-	 * @param  string $endpoint The endpoint name
 	 * @return array The decoded JSON array
 	 */
-	private function sendRequest($endpoint)
+	private function sendRequest()
 	{
+		$endpoint = $this->getEndpoint();
+		if (is_null($endpoint))
+			throw new \InvalidArgumentException("Endpoint name was not set.", 1);
+			
 		// Prepare the request
 		$request = $this->httpClient->createRequest('GET', $endpoint, ['query' => $this->queryParams]);
 		
