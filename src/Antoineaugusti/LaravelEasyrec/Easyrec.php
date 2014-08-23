@@ -275,6 +275,15 @@ class Easyrec {
 	}
 
 	/**
+	 * Returns true if an endpoint list items
+	 * @return boolean
+	 */
+	public function doesEndpointListItems()
+	{
+		return in_array($this->getEndpoint(), ['otherusersalsoviewed', 'otherusersalsobought', 'itemsratedgoodbyotherusers', 'recommendationsforuser', 'mostvieweditems', 'mostboughtitems', 'mostrateditems', 'bestrateditems', 'worstrateditems']);
+	}
+
+	/**
 	 * Send a request to an API endpoint
 	 * @return array The decoded JSON array
 	 */
@@ -291,7 +300,21 @@ class Easyrec {
 		$response = $this->httpClient->send($request);
 
 		// Parse JSON and returns an array
-		return $response->json();
+		$result = $response->json();
+
+		// Add a key to the array with a list of all items' ID
+		if ($this->doesEndpointListItems()) {
+			$ids = [];			
+			foreach ($result['recommendeditems'] as $items) {
+				foreach ($items as $item) {
+					$ids[] = $item['id'];
+				}
+			}
+
+			$result['listIDs'] = $ids;
+		}
+
+		return $result;
 	}
 
 	/**
