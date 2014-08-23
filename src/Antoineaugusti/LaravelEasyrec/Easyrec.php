@@ -304,14 +304,19 @@ class Easyrec {
 
 		// Add a key to the array with a list of all items' ID
 		if ($this->doesEndpointListItems()) {
-			$ids = [];			
-			foreach ($result['recommendeditems'] as $items) {
-				foreach ($items as $item) {
-					$ids[] = intval($item['id']);
+			
+			// Check that we have got the expected array
+			if (!is_null($result) AND array_key_exists('recommendeditems', $result)) {			
+				
+				$ids = [];
+				foreach ($result['recommendeditems'] as $items) {
+					foreach ($items as $item) {
+						$ids[] = intval($item['id']);
+					}
 				}
-			}
 
-			$result['listids'] = $ids;
+				$result['listids'] = $ids;
+			}
 		}
 
 		return $result;
