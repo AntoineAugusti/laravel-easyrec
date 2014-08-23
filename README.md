@@ -301,9 +301,7 @@ The response will be returned as a PHP array.
 				"year": "1990"
 			]
 		],
-		"url": "
-		  /item/beastieboys
-		"
+		"url": "/item/beastieboys"
 	  ]
 	]
 ]
