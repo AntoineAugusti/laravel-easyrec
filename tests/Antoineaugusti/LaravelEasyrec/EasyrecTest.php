@@ -16,6 +16,7 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 
 	public $config;
 	const ITEM_ID = 1337;
+	const USER_ID = 69;
 	const ITEM_DESCRIPTION = "mock-description";
 	const ITEM_URL = "mock-url";
 	const RATING_NOTE = 5;
@@ -188,5 +189,28 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		// Giving a string instead of a number of results should give an exception
 		$this->setExpectedException('InvalidArgumentException');
 		$this->easyrec->ratedGoodByOther(self::ITEM_ID, null, "not a number of results");
+	}
+
+	public function testRecommendationsForUser()
+	{
+		$this->easyrec->recommendationsForUser(self::USER_ID);
+
+		// Test required keys
+		$requiredKeys = ['userid'];
+		$queryParams = $this->easyrec->getQueryParams();
+		foreach ($requiredKeys as $key)
+			$this->assertArrayHasKey($key, $queryParams);
+
+		// Test values in the request
+		$this->assertEquals($queryParams["apikey"], "mock-key");
+		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
+		$this->assertEquals($queryParams["userid"], self::USER_ID);
+	}
+
+	public function testRecommendationsForUserException()
+	{
+		// Giving a string instead of a number of results should give an exception
+		$this->setExpectedException('InvalidArgumentException');
+		$this->easyrec->recommendationsForUser(self::USER_ID, "not a number of results");
 	}
 }
