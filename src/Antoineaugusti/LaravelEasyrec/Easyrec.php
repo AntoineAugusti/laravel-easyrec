@@ -1,6 +1,5 @@
 <?php namespace Antoineaugusti\LaravelEasyrec;
 
-use Illuminate\Support\Facades\Config;
 use GuzzleHttp\Client as HTTPClient;
 
 class Easyrec {
@@ -12,6 +11,7 @@ class Easyrec {
 	public function __construct($config)
 	{	
 		$this->config = $config;
+		// Register Guzzle
 		$this->setHttpClient(new HTTPClient(['base_url' => $this->getBaseURL()]));
 		
 		// Set API key and tenantID
@@ -40,11 +40,8 @@ class Easyrec {
 		if (is_null($sessionid))
 			$sessionid = session_id();
 
-		foreach (['userid', 'sessionid', 'itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'actiontime', 'itemtype'] as $param) {
-			// $this->setQueryParam($param);
-			if (!is_null($$param))
-			$this->queryParams[$param] = $$param;
-		}
+		foreach (['userid', 'sessionid', 'itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'actiontime', 'itemtype'] as $param)
+			$this->setQueryParam($param, $$param);
 
 		return $this->sendRequest('view');
 	}
@@ -55,18 +52,22 @@ class Easyrec {
 			$sessionid = session_id();
 
 		foreach (['userid', 'sessionid', 'itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'actiontime', 'itemtype'] as $param)
-			$this->setQueryParam($param);
+			$this->setQueryParam($param, $$param);
 
 		return $this->sendRequest('buy');
 	}
 
 	public function rate($itemid, $ratingvalue, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
 	{
+		// Check that the $ratingvalue as got the expected format
+		if (!is_numeric($ratingvalue) OR $ratingvalue > 10 OR $ratingvalue < 0)
+			throw new \InvalidArgumentException("The rating value should be between 0 and 10.", 1);
+			
 		if (is_null($sessionid))
 			$sessionid = session_id();
 
 		foreach (['userid', 'ratingvalue', 'sessionid', 'itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'actiontime', 'itemtype'] as $param)
-			$this->setQueryParam($param);
+			$this->setQueryParam($param, $$param);
 
 		return $this->sendRequest('buy');
 	}
@@ -78,7 +79,7 @@ class Easyrec {
 	public function alsoViewed($itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = null)
 	{
 		foreach (['itemid', 'userid', 'numberOfResults', 'itemtype', 'requesteditemtype', 'withProfile'] as $param)
-			$this->setQueryParam($param);
+			$this->setQueryParam($param, $$param);
 		
 		return $this->sendRequest('otherusersalsoviewed');
 	}
@@ -107,12 +108,13 @@ class Easyrec {
 
 	/**
 	 * Set a GET parameter
-	 * @param string $param The name of the parameter to set. Must be the name of a PHP variable
+	 * @param string $param The name of the parameter to set
+	 * @param mixed $value The value
 	 */
-	private function setQueryParam($param)
+	private function setQueryParam($key, $value)
 	{
 		// Do not set value if it was null because it was optional
-		if (!is_null($$param))
-			$this->queryParams[$param] = $$param;
+		if (!is_null($value))
+			$this->queryParams[$key] = $value;
 	}
 }
