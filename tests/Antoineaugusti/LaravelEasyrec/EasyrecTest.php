@@ -116,4 +116,24 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		$this->setExpectedException('InvalidArgumentException');
 		$this->easyrec->rate(self::ITEM_ID, "not a note", self::ITEM_DESCRIPTION, self::ITEM_URL);
 	}
+
+	/*
+	* RECOMMENDATIONS
+	* --------------------
+	*/
+	public function testAlsoViewed()
+	{
+		$this->easyrec->alsoViewed(self::ITEM_ID);
+
+		// Test required keys
+		$requiredKeys = ['itemid'];
+		$queryParams = $this->easyrec->getQueryParams();
+		foreach ($requiredKeys as $key)
+			$this->assertArrayHasKey($key, $queryParams);
+
+		// Test values in the request
+		$this->assertEquals($queryParams["apikey"], "mock-key");
+		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
+		$this->assertEquals($queryParams["itemid"], self::ITEM_ID);
+	}
 }
