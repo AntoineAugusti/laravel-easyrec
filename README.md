@@ -29,7 +29,7 @@ Take a look at the [easyrec installation guide](http://easyrec.sourceforge.net/w
 
 [PHP](https://php.net) 5.4+ or [HHVM](http://hhvm.com) 3.2+, and [Composer](https://getcomposer.org) are required.
 
-To get the latest version of Laravel easyrec, simply require `"antoineaugusti/laravel-easyrec": "~1.0"` in your `composer.json` file. You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
+To get the latest version of Laravel easyrec, simply require `"antoineaugusti/laravel-easyrec": "~0.0"` in your `composer.json` file. You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
 
 Once Laravel easyrec is installed, you need to register the service provider. Open up `app/config/app.php` and add the following to the `providers` key.
 
@@ -45,7 +45,7 @@ $ php artisan config:publish antoineaugusti/laravel-easyrec
 ```
 
 ## Usage
-### Actions
+## Actions
 The following variables are common to the actions methods.
 
 ##### Required parameters
@@ -137,7 +137,7 @@ The response will be returned as a PHP array.
 ]
 ```
 
-### Recommendations
+## Recommendations
 The following variables are common to the recommendations methods.
 
 ##### Required parameters
@@ -148,7 +148,7 @@ The following variables are common to the recommendations methods.
 - `$numberOfResults`: determine the number of results returned. Must be an integer in the range from 1 to 15.
 - `$itemtype`: An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used.
 - `$requesteditemtype`: A type of an item (e.g. `IMAGE`, `VIDEO`, `BOOK`, etc.) to filter the returned items. If not supplied the default value `ITEM` will be used.
-- `$withProfile`: If this parameter is set to true the result contains an additional element `profileData` with the item profile. Default value to `false`.
+- `$withProfile`: If this parameter is set to `true` the result contains an additional element `profileData` with the item profile. Default value to `false`.
 
 #### Users also viewed
 Users who viewed the specified item also viewed the returned items.
@@ -304,6 +304,164 @@ The response will be returned as a PHP array.
 		"url": "
 		  /item/beastieboys
 		"
+	  ]
+	]
+]
+```
+
+## Rankings
+The following variables are common to the rankings methods.
+
+##### Optional parameters
+- `$numberOfResults`: determine the number of results returned. Must be an integer in the range from 1 to 50.
+- `$requesteditemtype`: An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used.
+- `$timeRange`: An optional parameter to determine the time range. Available values:
+	- `DAY`: most viewed items within the last 24 hours
+	- `WEEK`: most viewed items within the last week
+	- `MONTH`: most viewed items within the last month
+	- `ALL` (default): if no value or this value is given, the most viewed items of all time will be shown.
+- `$withProfile`: If this parameter is set to `true` the result contains an additional element `profileData` with the item profile. Default value to `false`.
+
+#### Most viewed items
+Shows items that were viewed most by all users
+##### Function signature
+`Easyrec::mostViewedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)`
+
+##### Example response.
+The response will be returned as a PHP array.
+```
+[
+	"tenantid": "EASYREC_DEMO",
+	"action": "mostViewedItems",
+	"recommendeditems": [
+	  "item": [
+		"id": "43",
+		"type": "ITEM",
+		"description": "Beastie Boys - Intergalactic",
+		"profileData": [
+			"profile": [
+				"year": "1990"
+			]
+		],
+		"url": "/item/beastieboys",
+		"imageurl": "/img/covers/beastieboys.jpg",
+		"value": "111.0"
+	  ]
+	]
+]
+```
+
+#### Most bought items
+Shows items that were bought the most.
+##### Function signature
+`Easyrec::mostBoughtItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)`
+
+##### Example response.
+The response will be returned as a PHP array.
+```
+[
+	"tenantid": "EASYREC_DEMO",
+	"action": "mostBoughtItems",
+	"recommendeditems": [
+	  "item": [
+		"id": "43",
+		"type": "ITEM",
+		"description": "Beastie Boys - Intergalactic",
+		"profileData": [
+			"profile": [
+				"year": "1990"
+			]
+		],
+		"url": "/item/beastieboys",
+		"imageurl": "/img/covers/beastieboys.jpg",
+		"value": "111.0"
+	  ]
+	]
+]
+```
+
+#### Most rated items
+Shows items that were rated the most.
+##### Function signature
+`Easyrec::mostRatedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)`
+
+##### Example response.
+The response will be returned as a PHP array.
+```
+[
+	"tenantid": "EASYREC_DEMO",
+	"action": "mostRatedItems",
+	"recommendeditems": [
+	  "item": [
+		"id": "43",
+		"type": "ITEM",
+		"description": "Beastie Boys - Intergalactic",
+		"profileData": [
+			"profile": [
+				"year": "1990"
+			]
+		],
+		"url": "/item/beastieboys",
+		"imageurl": "/img/covers/beastieboys.jpg",
+		"value": "111.0"
+	  ]
+	]
+]
+```
+
+#### Best rated items
+Shows the best rated items. The ranking only includes items that have **an average ranking value greater than 5.5.**
+##### Function signature
+`Easyrec::bestRatedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)`
+
+##### Example response.
+The response will be returned as a PHP array.
+```
+[
+	"tenantid": "EASYREC_DEMO",
+	"action": "bestRatedItems",
+	"recommendeditems": [
+	  "item": [
+		"id": "43",
+		"type": "ITEM",
+		"description": "Beastie Boys - Intergalactic",
+		"profileData": [
+			"profile": [
+				"year": "1990"
+			]
+		],
+		"url": "/item/beastieboys",
+		"imageurl": "/img/covers/beastieboys.jpg",
+		"value": "111.0"
+	  ]
+	]
+]
+```
+
+#### Worst rated items
+Shows the worst rated items. The ranking only includes items that have **an average ranking value less than 5.5.**
+##### Function signature
+`Easyrec::worstRatedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)`
+
+##### Example response.
+The response will be returned as a PHP array.
+```
+[
+	"tenantid": "EASYREC_DEMO",
+	"action": "worstRatedItems",
+	"recommendeditems": [
+	  "item": [
+		"id": "43",
+		"type": "ITEM",
+		"description": "Beastie Boys - Intergalactic",
+		"profileData": [
+			"profile": [
+				"year": "1990"
+			]
+		],
+		"url": "/item/beastieboys",
+		"imageurl": "/img/covers/beastieboys.jpg",
+		"value": "111.0"
 	  ]
 	]
 ]
