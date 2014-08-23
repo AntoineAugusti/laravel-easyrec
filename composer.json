@@ -1,6 +1,8 @@
 {
 	"name": "antoineaugusti/laravel-easyrec",
-	"description": "",
+	"description": "A Laravel wrapper for the recommendation system Easyrec",
+	"keywords": ["laravel", "recommendation", "recommendation system", "easyrec", "suggestions", "suggestion"],
+	"license": "Apache-2.0",
 	"authors": [
 		{
 			"name": "Antoine Augusti",
