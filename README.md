@@ -193,6 +193,10 @@ The response will be returned as a PHP array.
 	]
 ]
 ```
+Note that your models can be retrieved using this simple code:
+```php
+YourModel::whereIn('id', $result['listids'])->get();
+```
 
 #### Users also bought
 Users who bought the specified item also bought the returned items.
@@ -236,6 +240,10 @@ The response will be returned as a PHP array.
 		43
 	]
 ]
+```
+Note that your models can be retrieved using this simple code:
+```php
+YourModel::whereIn('id', $result['listids'])->get();
 ```
 
 #### Items rated good by other users
@@ -281,6 +289,10 @@ The response will be returned as a PHP array.
 	]
 ]
 ```
+Note that your models can be retrieved using this simple code:
+```php
+YourModel::whereIn('id', $result['listids'])->get();
+```
 
 #### Recommendations for user
 Returns recommendations for a given user ID.
@@ -317,6 +329,10 @@ The response will be returned as a PHP array.
 		43
 	]
 ]
+```
+Note that your models can be retrieved using this simple code:
+```php
+YourModel::whereIn('id', $result['listids'])->get();
 ```
 
 ## Rankings
@@ -363,6 +379,10 @@ The response will be returned as a PHP array.
 	]
 ]
 ```
+Note that your models can be retrieved using this simple code:
+```php
+YourModel::whereIn('id', $result['listids'])->get();
+```
 
 #### Most bought items
 Shows items that were bought the most.
@@ -394,6 +414,10 @@ The response will be returned as a PHP array.
 		43
 	]
 ]
+```
+Note that your models can be retrieved using this simple code:
+```php
+YourModel::whereIn('id', $result['listids'])->get();
 ```
 
 #### Most rated items
@@ -427,6 +451,10 @@ The response will be returned as a PHP array.
 	]
 ]
 ```
+Note that your models can be retrieved using this simple code:
+```php
+YourModel::whereIn('id', $result['listids'])->get();
+```
 
 #### Best rated items
 Shows the best rated items. The ranking only includes items that have **an average ranking value greater than 5.5.**
@@ -459,6 +487,10 @@ The response will be returned as a PHP array.
 	]
 ]
 ```
+Note that your models can be retrieved using this simple code:
+```php
+YourModel::whereIn('id', $result['listids'])->get();
+```
 
 #### Worst rated items
 Shows the worst rated items. The ranking only includes items that have **an average ranking value less than 5.5.**
@@ -490,4 +522,8 @@ The response will be returned as a PHP array.
 		43
 	]
 ]
+```
+Note that your models can be retrieved using this simple code:
+```php
+YourModel::whereIn('id', $result['listids'])->get();
 ```
