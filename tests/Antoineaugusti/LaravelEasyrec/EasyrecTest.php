@@ -70,6 +70,9 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($queryParams["itemid"], self::ITEM_ID);
 		$this->assertEquals($queryParams["itemdescription"], self::ITEM_DESCRIPTION);
 		$this->assertEquals($queryParams["itemurl"], self::ITEM_URL);
+
+		// Test the endpoint name
+		$this->assertEquals('view', $this->easyrec->getEndpoint());
 	}
 
 	public function testBuy()
@@ -89,6 +92,9 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($queryParams["itemid"], self::ITEM_ID);
 		$this->assertEquals($queryParams["itemdescription"], self::ITEM_DESCRIPTION);
 		$this->assertEquals($queryParams["itemurl"], self::ITEM_URL);
+
+		// Test the endpoint name
+		$this->assertEquals('buy', $this->easyrec->getEndpoint());
 	}
 
 	public function testRate()
@@ -109,6 +115,9 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($queryParams["ratingvalue"], self::RATING_NOTE);
 		$this->assertEquals($queryParams["itemdescription"], self::ITEM_DESCRIPTION);
 		$this->assertEquals($queryParams["itemurl"], self::ITEM_URL);
+
+		// Test the endpoint name
+		$this->assertEquals('rate', $this->easyrec->getEndpoint());
 	}
 
 	public function testRateException()
@@ -136,6 +145,9 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($queryParams["apikey"], "mock-key");
 		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
 		$this->assertEquals($queryParams["itemid"], self::ITEM_ID);
+
+		// Test the endpoint name
+		$this->assertEquals('otherusersalsoviewed', $this->easyrec->getEndpoint());
 	}
 
 	public function testUsersAlsoViewedException()
@@ -159,6 +171,9 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($queryParams["apikey"], "mock-key");
 		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
 		$this->assertEquals($queryParams["itemid"], self::ITEM_ID);
+
+		// Test the endpoint name
+		$this->assertEquals('otherusersalsobought', $this->easyrec->getEndpoint());
 	}
 
 	public function testUsersAlsoBoughtException()
@@ -182,6 +197,9 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($queryParams["apikey"], "mock-key");
 		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
 		$this->assertEquals($queryParams["itemid"], self::ITEM_ID);
+
+		// Test the endpoint name
+		$this->assertEquals('itemsratedgoodbyotherusers', $this->easyrec->getEndpoint());
 	}
 
 	public function testRatedGoodByOtherException()
@@ -205,6 +223,9 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($queryParams["apikey"], "mock-key");
 		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
 		$this->assertEquals($queryParams["userid"], self::USER_ID);
+
+		// Test the endpoint name
+		$this->assertEquals('recommendationsforuser', $this->easyrec->getEndpoint());
 	}
 
 	public function testRecommendationsForUserException()
@@ -230,6 +251,9 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		$queryParams = $this->easyrec->getQueryParams();
 		$this->assertEquals($queryParams["apikey"], "mock-key");
 		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
+
+		// Test the endpoint name
+		$this->assertEquals('mostvieweditems', $this->easyrec->getEndpoint());
 	}
 
 	public function testMostViewedItemsNbResultsException()
@@ -257,6 +281,9 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		$queryParams = $this->easyrec->getQueryParams();
 		$this->assertEquals($queryParams["apikey"], "mock-key");
 		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
+
+		// Test the endpoint name
+		$this->assertEquals('mostboughtitems', $this->easyrec->getEndpoint());
 	}
 
 	public function testMostBoughtItemsNbResultsException()
@@ -284,6 +311,9 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		$queryParams = $this->easyrec->getQueryParams();
 		$this->assertEquals($queryParams["apikey"], "mock-key");
 		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
+
+		// Test the endpoint name
+		$this->assertEquals('mostrateditems', $this->easyrec->getEndpoint());
 	}
 
 	public function testMostRatedItemsNbResultsException()
@@ -311,6 +341,9 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		$queryParams = $this->easyrec->getQueryParams();
 		$this->assertEquals($queryParams["apikey"], "mock-key");
 		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
+
+		// Test the endpoint name
+		$this->assertEquals('bestrateditems', $this->easyrec->getEndpoint());
 	}
 
 	public function testBestRatedItemsNbResultsException()
@@ -338,6 +371,9 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		$queryParams = $this->easyrec->getQueryParams();
 		$this->assertEquals($queryParams["apikey"], "mock-key");
 		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
+
+		// Test the endpoint name
+		$this->assertEquals('worstrateditems', $this->easyrec->getEndpoint());
 	}
 
 	public function testWorstRatedItemsNbResultsException()
