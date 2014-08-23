@@ -187,6 +187,9 @@ The response will be returned as a PHP array.
 		],
 		"url": "/item/beastieboys"
 	  ]
+	],
+	"listids": [
+		43
 	]
 ]
 ```
@@ -228,6 +231,9 @@ The response will be returned as a PHP array.
 		],
 		"url": "/item/beastieboys"
 	  ]
+	],
+	"listids": [
+		43
 	]
 ]
 ```
@@ -269,6 +275,9 @@ The response will be returned as a PHP array.
 		],
 		"url": "/item/beastieboys"
 	  ]
+	],
+	"listids": [
+		43
 	]
 ]
 ```
@@ -303,6 +312,9 @@ The response will be returned as a PHP array.
 		],
 		"url": "/item/beastieboys"
 	  ]
+	],
+	"listids": [
+		43
 	]
 ]
 ```
@@ -345,6 +357,9 @@ The response will be returned as a PHP array.
 		"imageurl": "/img/covers/beastieboys.jpg",
 		"value": "111.0"
 	  ]
+	],
+	"listids": [
+		43
 	]
 ]
 ```
@@ -374,6 +389,9 @@ The response will be returned as a PHP array.
 		"imageurl": "/img/covers/beastieboys.jpg",
 		"value": "111.0"
 	  ]
+	],
+	"listids": [
+		43
 	]
 ]
 ```
@@ -403,6 +421,9 @@ The response will be returned as a PHP array.
 		"imageurl": "/img/covers/beastieboys.jpg",
 		"value": "111.0"
 	  ]
+	],
+	"listids": [
+		43
 	]
 ]
 ```
@@ -432,6 +453,9 @@ The response will be returned as a PHP array.
 		"imageurl": "/img/covers/beastieboys.jpg",
 		"value": "111.0"
 	  ]
+	],
+	"listids": [
+		43
 	]
 ]
 ```
@@ -461,6 +485,9 @@ The response will be returned as a PHP array.
 		"imageurl": "/img/covers/beastieboys.jpg",
 		"value": "111.0"
 	  ]
+	],
+	"listids": [
+		43
 	]
 ]
 ```
