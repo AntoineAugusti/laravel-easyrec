@@ -110,7 +110,7 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($queryParams["itemurl"], self::ITEM_URL);
 	}
 
-    public function testRateException()
+	public function testRateException()
 	{
 		// Giving a string instead of a note should give an exception
 		$this->setExpectedException('InvalidArgumentException');
@@ -121,9 +121,9 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 	* RECOMMENDATIONS
 	* --------------------
 	*/
-	public function testAlsoViewed()
+	public function testUsersAlsoViewed()
 	{
-		$this->easyrec->alsoViewed(self::ITEM_ID);
+		$this->easyrec->usersAlsoViewed(self::ITEM_ID);
 
 		// Test required keys
 		$requiredKeys = ['itemid'];
@@ -135,5 +135,58 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($queryParams["apikey"], "mock-key");
 		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
 		$this->assertEquals($queryParams["itemid"], self::ITEM_ID);
+	}
+
+	public function testUsersAlsoViewedException()
+	{
+		// Giving a string instead of a number of results should give an exception
+		$this->setExpectedException('InvalidArgumentException');
+		$this->easyrec->usersAlsoViewed(self::ITEM_ID, null, "not a number of results");
+	}
+
+	public function testUsersAlsoBought()
+	{
+		$this->easyrec->usersAlsoBought(self::ITEM_ID);
+
+		// Test required keys
+		$requiredKeys = ['itemid'];
+		$queryParams = $this->easyrec->getQueryParams();
+		foreach ($requiredKeys as $key)
+			$this->assertArrayHasKey($key, $queryParams);
+
+		// Test values in the request
+		$this->assertEquals($queryParams["apikey"], "mock-key");
+		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
+		$this->assertEquals($queryParams["itemid"], self::ITEM_ID);
+	}
+
+	public function testUsersAlsoBoughtException()
+	{
+		// Giving a string instead of a number of results should give an exception
+		$this->setExpectedException('InvalidArgumentException');
+		$this->easyrec->usersAlsoBought(self::ITEM_ID, null, "not a number of results");
+	}
+
+	public function testRatedGoodByOther()
+	{
+		$this->easyrec->ratedGoodByOther(self::ITEM_ID);
+
+		// Test required keys
+		$requiredKeys = ['itemid'];
+		$queryParams = $this->easyrec->getQueryParams();
+		foreach ($requiredKeys as $key)
+			$this->assertArrayHasKey($key, $queryParams);
+
+		// Test values in the request
+		$this->assertEquals($queryParams["apikey"], "mock-key");
+		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
+		$this->assertEquals($queryParams["itemid"], self::ITEM_ID);
+	}
+
+	public function testRatedGoodByOtherException()
+	{
+		// Giving a string instead of a number of results should give an exception
+		$this->setExpectedException('InvalidArgumentException');
+		$this->easyrec->ratedGoodByOther(self::ITEM_ID, null, "not a number of results");
 	}
 }
