@@ -147,6 +147,34 @@ The response will be returned as a PHP array.
 ]
 ```
 
+#### Send a custom action
+This action can be used to send generic user actions.
+##### Function signature
+`sendAction($itemid, $itemdescription, $itemurl, $actiontype, $actionvalue = null, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)`
+
+##### Parameters
+Non-null variables in the function signature are required. There are two addition parameters.
+- `$actiontype`: A required action type you want to use to send. **You must create the action type in the web interface before you can use it in API calls.**
+- `$actionvalue`: If your action type uses action values this parameter is required. It is used to save the action value of your action.
+
+##### Example response
+The response will be returned as a PHP array.
+```
+[
+	"tenantid": "rate",
+	"action": "delete",
+	"userid": "24EH1723322222A3",
+	"sessionid": "F3D4E3BE31EE3FA069F5434DB7EC2E34",
+	"item": [
+	  "id": "42",
+	  "type": "ITEM",
+	  "description": "Fatboy Slim - The Rockafeller Skank",
+	  "ratingValue": "10",
+	  "url": "/item/fatboyslim"
+	]
+]
+```
+
 ## Recommendations
 The following variables are common to the recommendations methods.
 
