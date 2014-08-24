@@ -311,7 +311,7 @@ class Easyrec {
 	 */
 	public function doesEndpointListItems()
 	{
-		return in_array($this->getEndpoint(), ['otherusersalsoviewed', 'otherusersalsobought', 'itemsratedgoodbyotherusers', 'recommendationsforuser', 'mostvieweditems', 'mostboughtitems', 'mostrateditems', 'bestrateditems', 'worstrateditems']);
+		return in_array($this->getEndpoint(), ['otherusersalsoviewed', 'otherusersalsobought', 'itemsratedgoodbyotherusers', 'recommendationsforuser', 'mostvieweditems', 'mostboughtitems', 'mostrateditems', 'bestrateditems', 'worstrateditems', 'actionhistoryforuser']);
 	}
 
 	/**
