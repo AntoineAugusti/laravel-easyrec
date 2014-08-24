@@ -2,18 +2,22 @@
 
 use GuzzleHttp\Client as HTTPClient;
 use Illuminate\Support\Facades\Session;
+use Antoineaugusti\LaravelEasyrec\Exceptions\EasyrecException;
 
 class Easyrec {
 
 	private $config;
+	private $endpoint;
 	private $httpClient;
 	private $queryParams;
-	private $endpoint;
+	private $response;
 
 	public function __construct($config)
 	{	
 		$this->config = $config;
 		$this->endpoint = null;
+		$this->response = null;
+		
 		// Register Guzzle
 		$this->setHttpClient(new HTTPClient(['base_url' => $this->getBaseURL()]));
 		
@@ -285,6 +289,45 @@ class Easyrec {
 	}
 
 	/**
+	 * Set the response given by the API
+	 * @param array $response
+	 */
+	public function setResponse($response)
+	{
+		$this->response = $response;
+	}
+
+	/**
+	 * Determine if the response given by the API has got an error
+	 * @return boolean
+	 */
+	public function responseHasError()
+	{
+		return (!is_null($this->response) AND array_key_exists('error', $this->response));
+	}
+
+	/**
+	 * Retrieve only the first response if we had an error in the response
+	 * @return array An array with key '@code' and '@message' describing the first error
+	 */
+	public function retrieveFirstErrorFromResponse()
+	{
+		if (!$this->responseHasError())
+			throw new \InvalidArgumentException("Response hasn't got an error");
+
+		$errors = $this->response['error'];
+			
+		// Multiple errors?
+		if (array_key_exists(0, $errors))
+			// Retrieve only the first error
+			$error = $errors[0];
+		else
+			$error = $errors;
+
+		return $error;
+	}
+
+	/**
 	 * Send a request to an API endpoint
 	 * @return array The decoded JSON array
 	 */
@@ -301,7 +344,15 @@ class Easyrec {
 		$response = $this->httpClient->send($request);
 
 		// Parse JSON and returns an array
-		$result = $response->json();
+		$this->setResponse($result = $response->json());
+
+		// Check if we had an error
+		if ($this->responseHasError()) {
+
+			$error = $this->retrieveFirstErrorFromResponse();
+
+			throw new EasyrecException($error['@message'], $error['@code']);
+		}
 
 		// Add a key to the array with a list of all items' ID
 		if ($this->doesEndpointListItems()) {
