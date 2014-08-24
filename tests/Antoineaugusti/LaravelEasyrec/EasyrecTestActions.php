@@ -7,6 +7,9 @@ use Antoineaugusti\LaravelEasyrec\LaravelEasyrecTestCase;
 
 class EasyrecTestActions extends LaravelEasyrecTestCase {
 	
+	//
+	// - view
+	//
 	public function testView()
 	{
 		Session::shouldReceive('getId')->once()->andReturn(self::SESSION_ID);
@@ -30,6 +33,9 @@ class EasyrecTestActions extends LaravelEasyrecTestCase {
 		$this->assertEquals('view', $this->easyrec->getEndpoint());
 	}
 
+	//
+	// - buy
+	//
 	public function testBuy()
 	{
 		Session::shouldReceive('getId')->once()->andReturn(self::SESSION_ID);
@@ -52,7 +58,10 @@ class EasyrecTestActions extends LaravelEasyrecTestCase {
 		// Test the endpoint name
 		$this->assertEquals('buy', $this->easyrec->getEndpoint());
 	}
-
+	
+	//
+	// - rate
+	//
 	public function testRate()
 	{
 		Session::shouldReceive('getId')->once()->andReturn(self::SESSION_ID);
@@ -83,7 +92,10 @@ class EasyrecTestActions extends LaravelEasyrecTestCase {
 		$this->setExpectedException('InvalidArgumentException');
 		$this->easyrec->rate(self::ITEM_ID, "not a note", self::ITEM_DESCRIPTION, self::ITEM_URL);
 	}
-
+	
+	//
+	// - sendAction
+	//
 	public function testSendAction()
 	{
 		Session::shouldReceive('getId')->once()->andReturn(self::SESSION_ID);

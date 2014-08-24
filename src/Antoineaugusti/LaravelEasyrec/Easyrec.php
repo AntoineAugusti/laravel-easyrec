@@ -42,6 +42,19 @@ class Easyrec {
 	* ACTIONS 
 	* --------------------
 	*/
+
+	/**
+	 * This action should be raised if a user views an item.
+	 * @param  string $itemid          An item ID to identify an item on your website. Eg: "POST42"
+	 * @param  string $itemdescription An item description that is displayed when showing recommendations on your website.
+	 * @param  string $itemurl         An item URL that links to the item page. Please give an absolute path.
+	 * @param  string $userid          A user ID.
+	 * @param  string $itemimageurl    An optional item image URL that links to an imagine of the item. Please give an absolute path.
+	 * @param  string $actiontime      An action time parameter that overwrites the current timestamp of the action. The parameter has the format "dd_MM_yyyy_HH_mm_ss".
+	 * @param  string $itemtype        An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used. 
+	 * @param  string $sessionid       A session ID of a user.
+	 * @return array The decoded JSON response                  
+	 */
 	public function view($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
 	{
 		if (is_null($sessionid))
@@ -56,6 +69,9 @@ class Easyrec {
 		return $this->sendRequest();
 	}
 
+	/**
+	 * @see view
+	 */
 	public function buy($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
 	{
 		if (is_null($sessionid))
@@ -70,6 +86,19 @@ class Easyrec {
 		return $this->sendRequest();
 	}
 
+	/**
+	 * This action should be raised if a user rates an item.
+	 * @param  string $itemid          An item ID to identify an item on your website. Eg: "POST42"
+	 * @param  integer $ratingvalue    The rating value of the item. Must be an integer in the range from 1 to 10.
+	 * @param  string $itemdescription An item description that is displayed when showing recommendations on your website.
+	 * @param  string $itemurl         An item URL that links to the item page. Please give an absolute path.
+	 * @param  string $userid          A user ID.
+	 * @param  string $itemimageurl    An optional item image URL that links to an imagine of the item. Please give an absolute path.
+	 * @param  string $actiontime      An action time parameter that overwrites the current timestamp of the action. The parameter has the format "dd_MM_yyyy_HH_mm_ss".
+	 * @param  string $itemtype        An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used. 
+	 * @param  string $sessionid       A session ID of a user.
+	 * @return array The decoded JSON response                  
+	 */
 	public function rate($itemid, $ratingvalue, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
 	{
 		// Check that the $ratingvalue as got the expected format
@@ -88,6 +117,20 @@ class Easyrec {
 		return $this->sendRequest();
 	}
 
+	/**
+	 * This action can be used to send generic user actions.
+	 * @param  string $itemid          An item ID to identify an item on your website. Eg: "POST42"
+	 * @param  string $itemdescription An item description that is displayed when showing recommendations on your website.
+	 * @param  string $itemurl         An item URL that links to the item page. Please give an absolute path.
+	 * @param  string $actiontype      A required action type you want to use to send.
+	 * @param  string $actionvalue     If your action type uses action values this parameter is required.
+	 * @param  string $userid          A user ID.
+	 * @param  string $itemimageurl    An optional item image URL that links to an imagine of the item. Please give an absolute path.
+	 * @param  string $actiontime      An action time parameter that overwrites the current timestamp of the action. The parameter has the format "dd_MM_yyyy_HH_mm_ss".
+	 * @param  string $itemtype        An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used. 
+	 * @param  string $sessionid       A session ID of a user.
+	 * @return array The decoded JSON response                  
+	 */
 	public function sendAction($itemid, $itemdescription, $itemurl, $actiontype, $actionvalue = null, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
 	{			
 		if (is_null($sessionid))
