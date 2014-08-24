@@ -29,7 +29,7 @@ Take a look at the [easyrec installation guide](http://easyrec.sourceforge.net/w
 
 [PHP](https://php.net) 5.4+ or [HHVM](http://hhvm.com) 3.2+, and [Composer](https://getcomposer.org) are required.
 
-To get the latest version of Laravel easyrec, simply require `"antoineaugusti/laravel-easyrec": "~1.0"` in your `composer.json` file. You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
+To get the latest version of Laravel easyrec, simply require `"antoineaugusti/laravel-easyrec": "~1.0"` in your `composer.json` file. You'll then need to run `composer install` or `composer update`.
 
 Once Laravel easyrec is installed, you need to register the service provider. Open up `app/config/app.php` and add the following to the `providers` key.
 
@@ -66,10 +66,10 @@ This action should be raised if a user views an item.
 `Easyrec::view($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)`
 
 ##### Parameters
-Non-null variables .
+Non-null variables in the function signature are required.
 
 ##### Example response.
-The response is displayed here as JSON but will be returned as a PHP array.
+The response will be returned as a PHP array.
 ```
 [
 	"action": "view",
