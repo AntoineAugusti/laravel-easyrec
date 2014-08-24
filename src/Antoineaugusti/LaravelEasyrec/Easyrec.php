@@ -47,7 +47,7 @@ class Easyrec {
 		if (is_null($sessionid))
 			$sessionid = Session::getId();
 
-		foreach (['userid', 'sessionid', 'itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'actiontime', 'itemtype'] as $param)
+		foreach (['itemid', 'itemdescription', 'itemurl', 'userid', 'itemimageurl', 'actiontime', 'itemtype', 'sessionid'] as $param)
 			$this->setQueryParam($param, $$param);
 
 		// Set the endpoint name and send the request
@@ -61,7 +61,7 @@ class Easyrec {
 		if (is_null($sessionid))
 			$sessionid = Session::getId();
 
-		foreach (['userid', 'sessionid', 'itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'actiontime', 'itemtype'] as $param)
+		foreach (['itemid', 'itemdescription', 'itemurl', 'userid', 'itemimageurl', 'actiontime', 'itemtype', 'sessionid'] as $param)
 			$this->setQueryParam($param, $$param);
 
 		// Set the endpoint name and send the request
@@ -84,6 +84,20 @@ class Easyrec {
 
 		// Set the endpoint name and send the request
 		$this->setEndpoint('rate');
+
+		return $this->sendRequest();
+	}
+
+	public function sendAction($itemid, $itemdescription, $itemurl, $actiontype, $actionvalue = null, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
+	{			
+		if (is_null($sessionid))
+			$sessionid = Session::getId();
+
+		foreach (['itemid', 'itemdescription', 'itemurl', 'actiontype', 'actionvalue', 'userid', 'itemimageurl', 'actiontime', 'itemtype', 'sessionid'] as $param)
+			$this->setQueryParam($param, $$param);
+
+		// Set the endpoint name and send the request
+		$this->setEndpoint('sendaction');
 
 		return $this->sendRequest();
 	}
