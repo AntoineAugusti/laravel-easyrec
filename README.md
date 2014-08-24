@@ -68,7 +68,7 @@ This action should be raised if a user views an item.
 ##### Parameters
 Non-null variables in the function signature are required.
 
-##### Example response.
+##### Example response
 The response will be returned as a PHP array.
 ```
 [
@@ -93,7 +93,7 @@ This action should be raised if a user buys an item.
 ##### Parameters
 Non-null variables in the function signature are required.
 
-##### Example response.
+##### Example response
 The response will be returned as a PHP array.
 ```
 [
@@ -119,7 +119,7 @@ This action should be raised if a user rates an item.
 Non-null variables in the function signature are required. The rating value is an additional parameter.
 - `$ratingvalue`: the rating value of the item. Must be an integer in the range from 1 to 10.
 
-##### Example response.
+##### Example response
 The response will be returned as a PHP array.
 ```
 [
@@ -158,7 +158,7 @@ Users who viewed the specified item also viewed the returned items.
 ##### Parameters
 Non-null variables in the function signature are required.
 
-##### Example response.
+##### Example response
 The response will be returned as a PHP array.
 ```
 [
@@ -206,7 +206,7 @@ Users who bought the specified item also bought the returned items.
 ##### Parameters
 Non-null variables in the function signature are required.
 
-##### Example response.
+##### Example response
 The response will be returned as a PHP array.
 ```
 [
@@ -254,7 +254,7 @@ Users who rated the specified item "good" did the same with items returned by th
 ##### Parameters
 Non-null variables in the function signature are required.
 
-##### Example response.
+##### Example response
 The response will be returned as a PHP array.
 ```
 [
@@ -303,7 +303,7 @@ Returns recommendations for a given user ID.
 Non-null variables in the function signature are required. There is an additional parameter
 - `$actiontype`: Allows to define which actions of a user are considered when creating the personalized recommendation. Valid values are: `VIEW`, `RATE`, `BUY`.
 
-##### Example response.
+##### Example response
 The response will be returned as a PHP array.
 ```
 [
@@ -353,7 +353,7 @@ Shows items that were viewed most by all users
 ##### Function signature
 `Easyrec::mostViewedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)`
 
-##### Example response.
+##### Example response
 The response will be returned as a PHP array.
 ```
 [
@@ -389,7 +389,7 @@ Shows items that were bought the most.
 ##### Function signature
 `Easyrec::mostBoughtItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)`
 
-##### Example response.
+##### Example response
 The response will be returned as a PHP array.
 ```
 [
@@ -425,7 +425,7 @@ Shows items that were rated the most.
 ##### Function signature
 `Easyrec::mostRatedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)`
 
-##### Example response.
+##### Example response
 The response will be returned as a PHP array.
 ```
 [
@@ -461,7 +461,7 @@ Shows the best rated items. The ranking only includes items that have **an avera
 ##### Function signature
 `Easyrec::bestRatedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)`
 
-##### Example response.
+##### Example response
 The response will be returned as a PHP array.
 ```
 [
@@ -497,7 +497,7 @@ Shows the worst rated items. The ranking only includes items that have **an aver
 ##### Function signature
 `Easyrec::worstRatedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)`
 
-##### Example response.
+##### Example response
 The response will be returned as a PHP array.
 ```
 [
