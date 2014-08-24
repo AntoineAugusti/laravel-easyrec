@@ -58,7 +58,7 @@ The following variables are common to the actions methods.
 - `$userid`: A user ID.
 - `$itemimageurl`: An optional item image URL that links to an imagine of the item. Please give an absolute path.
 - `$actiontime`: An action time parameter that overwrites the current timestamp of the action. The parameter has the format "dd_MM_yyyy_HH_mm_ss".
-- `$itemtype`: An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used.
+- `$itemtype`: An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used. **Warning**: before specifying a custom `itemtype` you must add this custom item type by using the web administration panel of Easyrec.
 
 #### Errors
 If an error occurs, an exception `Antoineaugusti\LaravelEasyrec\Exceptions\EasyrecException` will be thrown with one of the following code and message:
@@ -156,7 +156,7 @@ The following variables are common to the recommendations methods.
 ##### Optional parameters
 - `$userid`: A user ID. If this parameter is provided, items viewed by this user are suppressed.
 - `$numberOfResults`: determine the number of results returned. Must be an integer in the range from 1 to 15.
-- `$itemtype`: An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used.
+- `$itemtype`: An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used. **Warning**: before specifying a custom `itemtype` you must add this custom item type by using the web administration panel of Easyrec.
 - `$requesteditemtype`: A type of an item (e.g. `IMAGE`, `VIDEO`, `BOOK`, etc.) to filter the returned items. If not supplied the default value `ITEM` will be used.
 - `$withProfile`: If this parameter is set to `true` the result contains an additional element `profileData` with the item profile. Default value to `false`.
 
