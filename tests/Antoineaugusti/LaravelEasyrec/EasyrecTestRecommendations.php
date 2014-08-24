@@ -26,6 +26,7 @@ class EasyrecTestRecommendations extends LaravelEasyrecTestCase {
 
 		// Test the endpoint name
 		$this->assertEquals('otherusersalsoviewed', $this->easyrec->getEndpoint());
+		$this->assertTrue($this->easyrec->doesEndpointListItems());
 	}
 
 	public function testUsersAlsoViewedException()
@@ -55,6 +56,7 @@ class EasyrecTestRecommendations extends LaravelEasyrecTestCase {
 
 		// Test the endpoint name
 		$this->assertEquals('otherusersalsobought', $this->easyrec->getEndpoint());
+		$this->assertTrue($this->easyrec->doesEndpointListItems());
 	}
 
 	public function testUsersAlsoBoughtException()
@@ -84,6 +86,7 @@ class EasyrecTestRecommendations extends LaravelEasyrecTestCase {
 
 		// Test the endpoint name
 		$this->assertEquals('itemsratedgoodbyotherusers', $this->easyrec->getEndpoint());
+		$this->assertTrue($this->easyrec->doesEndpointListItems());
 	}
 
 	public function testRatedGoodByOtherException()
@@ -113,6 +116,7 @@ class EasyrecTestRecommendations extends LaravelEasyrecTestCase {
 
 		// Test the endpoint name
 		$this->assertEquals('recommendationsforuser', $this->easyrec->getEndpoint());
+		$this->assertTrue($this->easyrec->doesEndpointListItems());
 	}
 
 	public function testRecommendationsForUserException()
@@ -142,6 +146,7 @@ class EasyrecTestRecommendations extends LaravelEasyrecTestCase {
 
 		// Test the endpoint name
 		$this->assertEquals('actionhistoryforuser', $this->easyrec->getEndpoint());
+		$this->assertTrue($this->easyrec->doesEndpointListItems());
 	}
 
 	public function testActionHistoryForUserException()

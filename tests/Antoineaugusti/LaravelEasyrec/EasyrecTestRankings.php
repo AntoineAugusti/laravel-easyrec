@@ -20,6 +20,7 @@ class EasyrecTestRankings extends LaravelEasyrecTestCase {
 
 		// Test the endpoint name
 		$this->assertEquals('mostvieweditems', $this->easyrec->getEndpoint());
+		$this->assertTrue($this->easyrec->doesEndpointListItems());
 	}
 
 	public function testMostViewedItemsNbResultsException()
@@ -50,6 +51,7 @@ class EasyrecTestRankings extends LaravelEasyrecTestCase {
 
 		// Test the endpoint name
 		$this->assertEquals('mostboughtitems', $this->easyrec->getEndpoint());
+		$this->assertTrue($this->easyrec->doesEndpointListItems());
 	}
 
 	public function testMostBoughtItemsNbResultsException()
@@ -80,6 +82,7 @@ class EasyrecTestRankings extends LaravelEasyrecTestCase {
 
 		// Test the endpoint name
 		$this->assertEquals('mostrateditems', $this->easyrec->getEndpoint());
+		$this->assertTrue($this->easyrec->doesEndpointListItems());
 	}
 
 	public function testMostRatedItemsNbResultsException()
@@ -110,6 +113,7 @@ class EasyrecTestRankings extends LaravelEasyrecTestCase {
 
 		// Test the endpoint name
 		$this->assertEquals('bestrateditems', $this->easyrec->getEndpoint());
+		$this->assertTrue($this->easyrec->doesEndpointListItems());
 	}
 
 	public function testBestRatedItemsNbResultsException()
@@ -140,6 +144,7 @@ class EasyrecTestRankings extends LaravelEasyrecTestCase {
 
 		// Test the endpoint name
 		$this->assertEquals('worstrateditems', $this->easyrec->getEndpoint());
+		$this->assertTrue($this->easyrec->doesEndpointListItems());
 	}
 
 	public function testWorstRatedItemsNbResultsException()
