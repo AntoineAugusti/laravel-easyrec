@@ -180,6 +180,10 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 	* RECOMMENDATIONS
 	* --------------------
 	*/
+
+	//
+	// - usersAlsoViewed
+	//
 	public function testUsersAlsoViewed()
 	{
 		$this->easyrec->usersAlsoViewed(self::ITEM_ID);
@@ -206,6 +210,9 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		$this->easyrec->usersAlsoViewed(self::ITEM_ID, null, "not a number of results");
 	}
 
+	//
+	// - usersAlsoBought
+	//
 	public function testUsersAlsoBought()
 	{
 		$this->easyrec->usersAlsoBought(self::ITEM_ID);
@@ -232,6 +239,9 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		$this->easyrec->usersAlsoBought(self::ITEM_ID, null, "not a number of results");
 	}
 
+	//
+	// - ratedGoodByOther
+	//
 	public function testRatedGoodByOther()
 	{
 		$this->easyrec->ratedGoodByOther(self::ITEM_ID);
@@ -258,6 +268,9 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		$this->easyrec->ratedGoodByOther(self::ITEM_ID, null, "not a number of results");
 	}
 
+	//
+	// - recommendationsForUser
+	//
 	public function testRecommendationsForUser()
 	{
 		$this->easyrec->recommendationsForUser(self::USER_ID);
@@ -282,6 +295,35 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		// Giving a string instead of a number of results should give an exception
 		$this->setExpectedException('InvalidArgumentException');
 		$this->easyrec->recommendationsForUser(self::USER_ID, "not a number of results");
+	}
+
+	//
+	// - actionHistoryForUser
+	//
+	public function testActionHistoryForUser()
+	{
+		$this->easyrec->actionHistoryForUser(self::USER_ID);
+
+		// Test required keys
+		$requiredKeys = ['userid'];
+		$queryParams = $this->easyrec->getQueryParams();
+		foreach ($requiredKeys as $key)
+			$this->assertArrayHasKey($key, $queryParams);
+
+		// Test values in the request
+		$this->assertEquals($queryParams["apikey"], "mock-key");
+		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
+		$this->assertEquals($queryParams["userid"], self::USER_ID);
+
+		// Test the endpoint name
+		$this->assertEquals('actionhistoryforuser', $this->easyrec->getEndpoint());
+	}
+
+	public function testActionHistoryForUserException()
+	{
+		// Giving a string instead of a number of results should give an exception
+		$this->setExpectedException('InvalidArgumentException');
+		$this->easyrec->actionHistoryForUser(self::USER_ID, "not a number of results");
 	}
 
 	/*

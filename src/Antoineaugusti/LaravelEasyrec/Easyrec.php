@@ -174,6 +174,32 @@ class Easyrec {
 		return $this->sendRequest();
 	}
 
+	/**
+	 * Returns the last actions performed by a user
+	 * @param  mixed   $userid 				A required anonymised id of a user. (e.g. "24EH1723322222A3")
+	 * @param  integer $numberOfResults 	An optional parameter to determine the number of results returned. Should be between 1 and 15.
+	 * @param  string  $requesteditemtype 	An optional type of an item (e.g. IMAGE, VIDEO, BOOK, etc.) to filter the returned items.If not supplied items of all item types are returned.
+	 * @param  string  $actiontype 			Allows to define which actions of a user are considered when creating the personalized recommendation. Valid values are: VIEW, RATE, BUY.
+	 * @return array The decoded JSON response
+	 */
+	public function actionHistoryForUser($userid, $numberOfResults = 10, $requesteditemtype = null, $actiontype = null)
+	{
+		// Check that $numberOfResults has got the expected format
+		if (!is_numeric($numberOfResults) OR $numberOfResults < 0)
+			throw new \InvalidArgumentException("The number of results should be at least 1.", 1);
+
+		// Can't currently retrieve more than 15 results
+		$numberOfResults = min($numberOfResults, 15);
+
+		foreach (['userid', 'numberOfResults', 'requesteditemtype', 'actiontype'] as $param)
+			$this->setQueryParam($param, $$param);
+		
+		// Set the endpoint name and send the request
+		$this->setEndpoint('actionhistoryforuser');
+		
+		return $this->sendRequest();
+	}
+
 	/*
 	* RANKINGS 
 	* --------------------
