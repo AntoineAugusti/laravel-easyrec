@@ -9,12 +9,13 @@ use \PHPUnit_Framework_TestCase;
 abstract class LaravelEasyrecTestCase extends PHPUnit_Framework_TestCase {
 
 	public $config;
-	const ITEM_ID = 1337;
-	const USER_ID = 69;
+	const ITEM_ID          = 1337;
+	const USER_ID          = 69;
 	const ITEM_DESCRIPTION = "mock-description";
-	const ITEM_URL = "mock-url";
-	const RATING_NOTE = 5;
-	const SESSION_ID = "mock-session";
+	const ITEM_URL         = "mock-url";
+	const RATING_NOTE      = 5;
+	const SESSION_ID       = "mock-session";
+	const CUSTOM_ACTION    = "mock-action";
 
 	public function setUp()
 	{		

@@ -83,4 +83,28 @@ class EasyrecTestActions extends LaravelEasyrecTestCase {
 		$this->setExpectedException('InvalidArgumentException');
 		$this->easyrec->rate(self::ITEM_ID, "not a note", self::ITEM_DESCRIPTION, self::ITEM_URL);
 	}
+
+	public function testSendAction()
+	{
+		Session::shouldReceive('getId')->once()->andReturn(self::SESSION_ID);
+		$this->easyrec->sendAction(self::ITEM_ID, self::ITEM_DESCRIPTION, self::ITEM_URL, self::CUSTOM_ACTION);
+
+		// Test required keys
+		$requiredKeys = ['itemid', 'itemdescription', 'itemurl', 'actiontype', 'sessionid'];
+		$queryParams = $this->easyrec->getQueryParams();
+		foreach ($requiredKeys as $key)
+			$this->assertArrayHasKey($key, $queryParams);
+
+		// Test values in the request
+		$this->assertEquals($queryParams["apikey"], "mock-key");
+		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
+		$this->assertEquals($queryParams["sessionid"], self::SESSION_ID);
+		$this->assertEquals($queryParams["itemid"], self::ITEM_ID);
+		$this->assertEquals($queryParams["itemdescription"], self::ITEM_DESCRIPTION);
+		$this->assertEquals($queryParams["itemurl"], self::ITEM_URL);
+		$this->assertEquals($queryParams["actiontype"], self::CUSTOM_ACTION);
+
+		// Test the endpoint name
+		$this->assertEquals('sendaction', $this->easyrec->getEndpoint());
+	}
 }
