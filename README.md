@@ -60,6 +60,16 @@ The following variables are common to the actions methods.
 - `$actiontime`: An action time parameter that overwrites the current timestamp of the action. The parameter has the format "dd_MM_yyyy_HH_mm_ss".
 - `$itemtype`: An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used.
 
+#### Errors
+If an error occurs, an exception `Antoineaugusti\LaravelEasyrec\Exceptions\EasyrecException` will be thrown with one of the following code and message:
+- code 299: `Wrong APIKey/Tenant combination!`
+- code 301: `Item requires an id!`
+- code 303: `Item requires a description!`
+- code 304: `Item requires a URL!`
+- code 305: `Item requires a valid Rating Value!` (only when calling the `rate` method)
+- code 401: `A session id is required!`
+- code 912: `Operation failed! itemType XXX not found for tenant YYY`
+
 #### View
 This action should be raised if a user views an item.
 ##### Function signature
@@ -149,6 +159,13 @@ The following variables are common to the recommendations methods.
 - `$itemtype`: An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used.
 - `$requesteditemtype`: A type of an item (e.g. `IMAGE`, `VIDEO`, `BOOK`, etc.) to filter the returned items. If not supplied the default value `ITEM` will be used.
 - `$withProfile`: If this parameter is set to `true` the result contains an additional element `profileData` with the item profile. Default value to `false`.
+
+#### Errors
+If an error occurs, an exception `Antoineaugusti\LaravelEasyrec\Exceptions\EasyrecException` will be thrown with one of the following code and message:
+- code 299: `Wrong APIKey/Tenant combination!`
+- code 300: `Item does not exist!`
+- code 403: `No Userd Id given!` (only when calling the `recommendationsForUser` method)
+- code 912: `Operation failed! itemType XXX not found for tenant YYY`
 
 #### Users also viewed
 Users who viewed the specified item also viewed the returned items.
@@ -347,6 +364,12 @@ The following variables are common to the rankings methods.
 	- `MONTH`: most viewed items within the last month
 	- `ALL` (default): if no value or this value is given, the most viewed items of all time will be shown.
 - `$withProfile`: If this parameter is set to `true` the result contains an additional element `profileData` with the item profile. Default value to `false`.
+
+#### Errors
+If an error occurs, an exception `Antoineaugusti\LaravelEasyrec\Exceptions\EasyrecException` will be thrown with one of the following code and message:
+- code 299: `Wrong APIKey/Tenant combination!`
+- code 300: `Item does not exist!`
+- code 912: `Operation failed! itemType XXX not found for tenant YYY`
 
 #### Most viewed items
 Shows items that were viewed most by all users
