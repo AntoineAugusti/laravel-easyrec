@@ -52,7 +52,7 @@ The following variables are common to the actions methods.
 - `$itemid`: An item ID to identify an item on your website. Eg: "POST42"
 - `$itemdescription`: An item description that is displayed when showing recommendations on your website.
 - `$itemurl`: An item URL that links to the item page. Please give an absolute path.
-- `$sessionid`: A session ID of a user. If not given, will try to guess with the PHP function `session_id()`
+- `$sessionid`: A session ID of a user. If not given, will try to guess with the Session facade `Session::getId()`
 
 ##### Optional parameters
 - `$userid`: A user ID.

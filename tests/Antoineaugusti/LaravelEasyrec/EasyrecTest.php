@@ -5,12 +5,7 @@ use GuzzleHttp\Adapter\MockAdapter;
 use GuzzleHttp\Adapter\TransactionInterface;
 use GuzzleHttp\Message\Response;
 use \PHPUnit_Framework_TestCase;
-
-// Overwrite the session_id function from PHP
-function session_id()
-{
-	return 42;
-}
+use Illuminate\Support\Facades\Session;
 
 class EasryrecTest extends PHPUnit_Framework_TestCase {
 
@@ -20,10 +15,11 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 	const ITEM_DESCRIPTION = "mock-description";
 	const ITEM_URL = "mock-url";
 	const RATING_NOTE = 5;
+	const SESSION_ID = "mock-session";
 
 
 	public function setUp()
-	{
+	{		
 		$config = [
 			'baseURL'    => 'mock-url',
 			'apiVersion' => '1.0',
@@ -55,6 +51,7 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 	*/
 	public function testView()
 	{
+		Session::shouldReceive('getId')->once()->andReturn(self::SESSION_ID);
 		$this->easyrec->view(self::ITEM_ID, self::ITEM_DESCRIPTION, self::ITEM_URL);
 
 		// Test required keys
@@ -66,7 +63,7 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		// Test values in the request
 		$this->assertEquals($queryParams["apikey"], "mock-key");
 		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
-		$this->assertEquals($queryParams["sessionid"], 42);
+		$this->assertEquals($queryParams["sessionid"], self::SESSION_ID);
 		$this->assertEquals($queryParams["itemid"], self::ITEM_ID);
 		$this->assertEquals($queryParams["itemdescription"], self::ITEM_DESCRIPTION);
 		$this->assertEquals($queryParams["itemurl"], self::ITEM_URL);
@@ -77,6 +74,7 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 
 	public function testBuy()
 	{
+		Session::shouldReceive('getId')->once()->andReturn(self::SESSION_ID);
 		$this->easyrec->buy(self::ITEM_ID, self::ITEM_DESCRIPTION, self::ITEM_URL);
 
 		// Test required keys
@@ -88,7 +86,7 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		// Test values in the request
 		$this->assertEquals($queryParams["apikey"], "mock-key");
 		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
-		$this->assertEquals($queryParams["sessionid"], 42);
+		$this->assertEquals($queryParams["sessionid"], self::SESSION_ID);
 		$this->assertEquals($queryParams["itemid"], self::ITEM_ID);
 		$this->assertEquals($queryParams["itemdescription"], self::ITEM_DESCRIPTION);
 		$this->assertEquals($queryParams["itemurl"], self::ITEM_URL);
@@ -99,6 +97,7 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 
 	public function testRate()
 	{
+		Session::shouldReceive('getId')->once()->andReturn(self::SESSION_ID);
 		$this->easyrec->rate(self::ITEM_ID, self::RATING_NOTE, self::ITEM_DESCRIPTION, self::ITEM_URL);
 
 		// Test required keys
@@ -110,7 +109,7 @@ class EasryrecTest extends PHPUnit_Framework_TestCase {
 		// Test values in the request
 		$this->assertEquals($queryParams["apikey"], "mock-key");
 		$this->assertEquals($queryParams["tenantid"], "mock-tenant");
-		$this->assertEquals($queryParams["sessionid"], 42);
+		$this->assertEquals($queryParams["sessionid"], self::SESSION_ID);
 		$this->assertEquals($queryParams["itemid"], self::ITEM_ID);
 		$this->assertEquals($queryParams["ratingvalue"], self::RATING_NOTE);
 		$this->assertEquals($queryParams["itemdescription"], self::ITEM_DESCRIPTION);

@@ -1,6 +1,7 @@
 <?php namespace Antoineaugusti\LaravelEasyrec;
 
 use GuzzleHttp\Client as HTTPClient;
+use Illuminate\Support\Facades\Session;
 
 class Easyrec {
 
@@ -40,7 +41,7 @@ class Easyrec {
 	public function view($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
 	{
 		if (is_null($sessionid))
-			$sessionid = session_id();
+			$sessionid = Session::getId();
 
 		foreach (['userid', 'sessionid', 'itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'actiontime', 'itemtype'] as $param)
 			$this->setQueryParam($param, $$param);
@@ -54,7 +55,7 @@ class Easyrec {
 	public function buy($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
 	{
 		if (is_null($sessionid))
-			$sessionid = session_id();
+			$sessionid = Session::getId();
 
 		foreach (['userid', 'sessionid', 'itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'actiontime', 'itemtype'] as $param)
 			$this->setQueryParam($param, $$param);
@@ -72,7 +73,7 @@ class Easyrec {
 			throw new \InvalidArgumentException("The rating value should be between 1 and 10.", 1);
 			
 		if (is_null($sessionid))
-			$sessionid = session_id();
+			$sessionid = Session::getId();
 
 		foreach (['userid', 'ratingvalue', 'sessionid', 'itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'actiontime', 'itemtype'] as $param)
 			$this->setQueryParam($param, $$param);
