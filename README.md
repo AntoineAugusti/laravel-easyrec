@@ -352,6 +352,63 @@ Note that your models can be retrieved using this simple code:
 YourModel::whereIn('id', $result['listids'])->get();
 ```
 
+#### History for user
+Returns items which were involved in the latest user actions.
+##### Function signature
+`Easyrec::actionHistoryForUser($userid, $numberOfResults = 10, $requesteditemtype = null, $actiontype = null)`
+
+##### Parameters
+Non-null variables in the function signature are required. There is an additional parameter
+- `$actiontype`: Allows to define which actions of a user are considered when creating the personalized recommendation. Valid values are: `VIEW`, `RATE`, `BUY`.
+
+##### Example response
+The response will be returned as a PHP array.
+```
+[
+	'action' => 'actionhistory',
+	'recommendeditems' => [
+		'item' => [
+			0 => [
+				'creationDate' => '2014-08-24 12:40:32.0',
+				'description' => 'Quote 17982',
+				'imageUrl' => [
+					'@nil' => 'true'
+				],
+				'id' => '17982',
+				'itemType' => 'QUOTE',
+				'profileData' => [
+					'@nil' => 'true'
+				],
+				'url' => 'http://example.com/quotes/17982'
+			],
+			1 => [
+				'creationDate' => '2014-08-24 12:00:59.0',
+				'description' => 'Quote 17987',
+				'imageUrl' => [
+					'@nil' => 'true'
+				],
+				'id' => '17987',
+				'itemType' => 'QUOTE',
+				'profileData' => [
+					'@nil' => 'true'
+				],
+				'url' => 'http://example.com/quotes/17982'
+			]
+		]
+	],
+	'tenantid' => 'demo',
+	'userid' => '27',
+	'listids' => [
+		0 => 17982,
+		1 => 17987,
+	]
+]
+```
+Note that your models can be retrieved using this simple code:
+```php
+YourModel::whereIn('id', $result['listids'])->get();
+```
+
 ## Rankings
 The following variables are common to the rankings methods.
 
