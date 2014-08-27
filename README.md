@@ -29,7 +29,7 @@ Take a look at the [easyrec installation guide](http://easyrec.sourceforge.net/w
 
 [PHP](https://php.net) 5.4+ or [HHVM](http://hhvm.com) 3.2+, and [Composer](https://getcomposer.org) are required.
 
-To get the latest version of Laravel easyrec, simply require `"antoineaugusti/laravel-easyrec": "~1.0"` in your `composer.json` file. You'll then need to run `composer install` or `composer update`.
+To get the latest version of Laravel easyrec, simply require `"antoineaugusti/laravel-easyrec": "~0.1"` in your `composer.json` file. You'll then need to run `composer install` or `composer update`.
 
 Once Laravel easyrec is installed, you need to register the service provider. Open up `app/config/app.php` and add the following to the `providers` key.
 
