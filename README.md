@@ -70,7 +70,7 @@ If an error occurs, an exception `Antoineaugusti\LaravelEasyrec\Exceptions\Easyr
 - code 401: `A session id is required!`
 - code 912: `Operation failed! itemType XXX not found for tenant YYY`
 
-#### View
+### View
 This action should be raised if a user views an item.
 ##### Function signature
 `Easyrec::view($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)`
@@ -95,7 +95,7 @@ The response will be returned as a PHP array.
 ]
 ```
 
-#### Buy
+### Buy
 This action should be raised if a user buys an item.
 ##### Function signature
 `Easyrec::buy($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)`
@@ -120,7 +120,7 @@ The response will be returned as a PHP array.
 ]
 ```
 
-#### Rate
+### Rate
 This action should be raised if a user rates an item.
 ##### Function signature
 `Easyrec::rate($itemid, $ratingvalue, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)`
@@ -147,7 +147,7 @@ The response will be returned as a PHP array.
 ]
 ```
 
-#### Send a custom action
+### Send a custom action
 This action can be used to send generic user actions.
 ##### Function signature
 `sendAction($itemid, $itemdescription, $itemurl, $actiontype, $actionvalue = null, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)`
@@ -195,7 +195,7 @@ If an error occurs, an exception `Antoineaugusti\LaravelEasyrec\Exceptions\Easyr
 - code 403: `No Userd Id given!` (only when calling the `recommendationsForUser` method)
 - code 912: `Operation failed! itemType XXX not found for tenant YYY`
 
-#### Users also viewed
+### Users also viewed
 Users who viewed the specified item also viewed the returned items.
 ##### Function signature
 `Easyrec::usersAlsoViewed($itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = false)`
@@ -238,12 +238,21 @@ The response will be returned as a PHP array.
 	]
 ]
 ```
+##### Retrieving your models
 Note that your models can be retrieved using this simple code:
 ```php
 YourModel::whereIn('id', $result['listids'])->get();
 ```
 
-#### Users also bought
+If you want to keep the order of the items, you can use this code if you are using **MySQL**:
+```php
+$ids = $result['listids']:
+YourModel::whereIn('id', $ids)
+	->orderBy(DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
+	->get();
+```
+
+### Users also bought
 Users who bought the specified item also bought the returned items.
 ##### Function signature
 `Easyrec::usersAlsoBought($itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = false)`
@@ -286,12 +295,21 @@ The response will be returned as a PHP array.
 	]
 ]
 ```
+##### Retrieving your models
 Note that your models can be retrieved using this simple code:
 ```php
 YourModel::whereIn('id', $result['listids'])->get();
 ```
 
-#### Items rated good by other users
+If you want to keep the order of the items, you can use this code if you are using **MySQL**:
+```php
+$ids = $result['listids']:
+YourModel::whereIn('id', $ids)
+	->orderBy(DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
+	->get();
+```
+
+### Items rated good by other users
 Users who rated the specified item "good" did the same with items returned by this method.
 ##### Function signature
 `Easyrec::ratedGoodByOther($itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = false)`
@@ -334,12 +352,21 @@ The response will be returned as a PHP array.
 	]
 ]
 ```
+##### Retrieving your models
 Note that your models can be retrieved using this simple code:
 ```php
 YourModel::whereIn('id', $result['listids'])->get();
 ```
 
-#### Recommendations for user
+If you want to keep the order of the items, you can use this code if you are using **MySQL**:
+```php
+$ids = $result['listids']:
+YourModel::whereIn('id', $ids)
+	->orderBy(DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
+	->get();
+```
+
+### Recommendations for user
 Returns recommendations for a given user ID.
 ##### Function signature
 `Easyrec::recommendationsForUser($userid, $numberOfResults = 10, $requesteditemtype = null, $actiontype = "VIEW", $withProfile = false)`
@@ -375,12 +402,21 @@ The response will be returned as a PHP array.
 	]
 ]
 ```
+##### Retrieving your models
 Note that your models can be retrieved using this simple code:
 ```php
 YourModel::whereIn('id', $result['listids'])->get();
 ```
 
-#### History for user
+If you want to keep the order of the items, you can use this code if you are using **MySQL**:
+```php
+$ids = $result['listids']:
+YourModel::whereIn('id', $ids)
+	->orderBy(DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
+	->get();
+```
+
+### History for user
 Returns items which were involved in the latest user actions.
 ##### Function signature
 `Easyrec::actionHistoryForUser($userid, $numberOfResults = 10, $requesteditemtype = null, $actiontype = null)`
@@ -432,9 +468,18 @@ The response will be returned as a PHP array.
 	]
 ]
 ```
+##### Retrieving your models
 Note that your models can be retrieved using this simple code:
 ```php
 YourModel::whereIn('id', $result['listids'])->get();
+```
+
+If you want to keep the order of the items, you can use this code if you are using **MySQL**:
+```php
+$ids = $result['listids']:
+YourModel::whereIn('id', $ids)
+	->orderBy(DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
+	->get();
 ```
 
 ## Rankings
@@ -456,7 +501,7 @@ If an error occurs, an exception `Antoineaugusti\LaravelEasyrec\Exceptions\Easyr
 - code 300: `Item does not exist!`
 - code 912: `Operation failed! itemType XXX not found for tenant YYY`
 
-#### Most viewed items
+### Most viewed items
 Shows items that were viewed most by all users
 ##### Function signature
 `Easyrec::mostViewedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)`
@@ -487,12 +532,21 @@ The response will be returned as a PHP array.
 	]
 ]
 ```
+##### Retrieving your models
 Note that your models can be retrieved using this simple code:
 ```php
 YourModel::whereIn('id', $result['listids'])->get();
 ```
 
-#### Most bought items
+If you want to keep the order of the items, you can use this code if you are using **MySQL**:
+```php
+$ids = $result['listids']:
+YourModel::whereIn('id', $ids)
+	->orderBy(DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
+	->get();
+```
+
+### Most bought items
 Shows items that were bought the most.
 ##### Function signature
 `Easyrec::mostBoughtItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)`
@@ -523,12 +577,21 @@ The response will be returned as a PHP array.
 	]
 ]
 ```
+##### Retrieving your models
 Note that your models can be retrieved using this simple code:
 ```php
 YourModel::whereIn('id', $result['listids'])->get();
 ```
 
-#### Most rated items
+If you want to keep the order of the items, you can use this code if you are using **MySQL**:
+```php
+$ids = $result['listids']:
+YourModel::whereIn('id', $ids)
+	->orderBy(DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
+	->get();
+```
+
+### Most rated items
 Shows items that were rated the most.
 ##### Function signature
 `Easyrec::mostRatedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)`
@@ -559,12 +622,21 @@ The response will be returned as a PHP array.
 	]
 ]
 ```
+##### Retrieving your models
 Note that your models can be retrieved using this simple code:
 ```php
 YourModel::whereIn('id', $result['listids'])->get();
 ```
 
-#### Best rated items
+If you want to keep the order of the items, you can use this code if you are using **MySQL**:
+```php
+$ids = $result['listids']:
+YourModel::whereIn('id', $ids)
+	->orderBy(DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
+	->get();
+```
+
+### Best rated items
 Shows the best rated items. The ranking only includes items that have **an average ranking value greater than 5.5.**
 ##### Function signature
 `Easyrec::bestRatedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)`
@@ -595,12 +667,21 @@ The response will be returned as a PHP array.
 	]
 ]
 ```
+##### Retrieving your models
 Note that your models can be retrieved using this simple code:
 ```php
 YourModel::whereIn('id', $result['listids'])->get();
 ```
 
-#### Worst rated items
+If you want to keep the order of the items, you can use this code if you are using **MySQL**:
+```php
+$ids = $result['listids']:
+YourModel::whereIn('id', $ids)
+	->orderBy(DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
+	->get();
+```
+
+### Worst rated items
 Shows the worst rated items. The ranking only includes items that have **an average ranking value less than 5.5.**
 ##### Function signature
 `Easyrec::worstRatedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)`
@@ -631,7 +712,16 @@ The response will be returned as a PHP array.
 	]
 ]
 ```
+##### Retrieving your models
 Note that your models can be retrieved using this simple code:
 ```php
 YourModel::whereIn('id', $result['listids'])->get();
+```
+
+If you want to keep the order of the items, you can use this code if you are using **MySQL**:
+```php
+$ids = $result['listids']:
+YourModel::whereIn('id', $ids)
+	->orderBy(DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
+	->get();
 ```
