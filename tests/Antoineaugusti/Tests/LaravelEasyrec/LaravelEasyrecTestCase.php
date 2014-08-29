@@ -1,5 +1,6 @@
-<?php namespace Antoineaugusti\LaravelEasyrec;
+<?php namespace Antoineaugusti\Tests\LaravelEasyrec;
 
+use Antoineaugusti\LaravelEasyrec\Easyrec;
 use GuzzleHttp\Client;
 use GuzzleHttp\Adapter\MockAdapter;
 use GuzzleHttp\Adapter\TransactionInterface;

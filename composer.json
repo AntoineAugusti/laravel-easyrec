@@ -24,5 +24,10 @@
 			"Antoineaugusti\\LaravelEasyrec\\": "src/"
 		}
 	},
+	"autoload-dev": {
+		"psr-0": {
+			"Antoineaugusti\\Tests\\LaravelEasyrec\\": "tests/"
+		}
+	},
 	"minimum-stability": "stable"
 }

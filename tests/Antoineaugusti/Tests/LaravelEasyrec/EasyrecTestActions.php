@@ -1,9 +1,6 @@
-<?php namespace Antoineaugusti\LaravelEasyrec;
-
-require_once "LaravelEasyrecTestCase.php";
+<?php namespace Antoineaugusti\Tests\LaravelEasyrec;
 
 use Illuminate\Support\Facades\Session;
-use Antoineaugusti\LaravelEasyrec\LaravelEasyrecTestCase;
 
 class EasyrecTestActions extends LaravelEasyrecTestCase {
 	

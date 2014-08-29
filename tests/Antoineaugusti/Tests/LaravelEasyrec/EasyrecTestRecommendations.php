@@ -1,8 +1,4 @@
-<?php namespace Antoineaugusti\LaravelEasyrec;
-
-require_once "LaravelEasyrecTestCase.php";
-
-use Antoineaugusti\LaravelEasyrec\LaravelEasyrecTestCase;
+<?php namespace Antoineaugusti\Tests\LaravelEasyrec;
 
 class EasyrecTestRecommendations extends LaravelEasyrecTestCase {
 
