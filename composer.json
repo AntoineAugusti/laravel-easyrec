@@ -11,8 +11,8 @@
 	],
 	"require": {
 		"php": ">=5.4.0",
-		"illuminate/support": "4.2.*",
-		"illuminate/session": "4.2.*",
+		"illuminate/support": "~5.0",
+		"illuminate/session": "~5.0",
 		"guzzlehttp/guzzle": "~4.0"
 	},
 	"require-dev": {
@@ -20,12 +20,12 @@
 		"mockery/mockery": "dev-master"
 	},
 	"autoload": {
-		"psr-0": {
+		"psr-4": {
 			"Antoineaugusti\\LaravelEasyrec\\": "src/"
 		}
 	},
 	"autoload-dev": {
-		"psr-0": {
+		"psr-4": {
 			"Antoineaugusti\\Tests\\LaravelEasyrec\\": "tests/"
 		}
 	},

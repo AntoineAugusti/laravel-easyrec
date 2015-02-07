@@ -5,20 +5,25 @@ use Illuminate\Support\ServiceProvider;
 class LaravelEasyrecServiceProvider extends ServiceProvider {
 
 	/**
-	 * Indicates if loading of the provider is deferred.
-	 *
-	 * @var bool
-	 */
-	protected $defer = false;
-
-	/**
-	 * Bootstrap the application events.
+	 * Boot the service provider.
 	 *
 	 * @return void
 	 */
 	public function boot()
 	{
-		$this->package('antoineaugusti/laravel-easyrec', 'antoineaugusti/laravel-easyrec');
+		$this->setupConfig();
+	}
+
+	/**
+	 * Setup the config.
+	 *
+	 * @return void
+	 */
+	protected function setupConfig()
+	{
+		$source = realpath(__DIR__.'/../config/easyrec.php');
+		$this->publishes([$source => config_path('easyrec.php')]);
+		$this->mergeConfigFrom($source, 'easyrec');
 	}
 
 	/**
@@ -32,20 +37,9 @@ class LaravelEasyrecServiceProvider extends ServiceProvider {
 			$config = [];
 
 			foreach (['baseURL', 'apiKey', 'tenantID', 'apiVersion'] as $value)
-				$config[$value] = $app['config']->get('antoineaugusti/laravel-easyrec::'.$value);
+				$config[$value] = $this->app->config->get('easyrec.'.$value);
 
 			return new Easyrec($config);
 		});
 	}
-
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
-	public function provides()
-	{
-		return array('laraveleasyrec');
-	}
-
 }
