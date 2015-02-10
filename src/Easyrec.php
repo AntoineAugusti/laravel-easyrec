@@ -13,14 +13,14 @@ class Easyrec {
 	private $response;
 
 	public function __construct($config)
-	{	
+	{
 		$this->config = $config;
 		$this->endpoint = null;
 		$this->response = null;
-		
+
 		// Register Guzzle
 		$this->setHttpClient(new HTTPClient(['base_url' => $this->getBaseURL()]));
-		
+
 		// Set API key and tenantID
 		$this->queryParams = [
 			'apikey'   => $config['apiKey'],
@@ -39,7 +39,7 @@ class Easyrec {
 	}
 
 	/*
-	* ACTIONS 
+	* ACTIONS
 	* --------------------
 	*/
 
@@ -51,9 +51,9 @@ class Easyrec {
 	 * @param  string $userid          A user ID.
 	 * @param  string $itemimageurl    An optional item image URL that links to an imagine of the item. Please give an absolute path.
 	 * @param  string $actiontime      An action time parameter that overwrites the current timestamp of the action. The parameter has the format "dd_MM_yyyy_HH_mm_ss".
-	 * @param  string $itemtype        An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used. 
+	 * @param  string $itemtype        An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used.
 	 * @param  string $sessionid       A session ID of a user.
-	 * @return array The decoded JSON response                  
+	 * @return array The decoded JSON response
 	 */
 	public function view($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
 	{
@@ -95,16 +95,16 @@ class Easyrec {
 	 * @param  string $userid          A user ID.
 	 * @param  string $itemimageurl    An optional item image URL that links to an imagine of the item. Please give an absolute path.
 	 * @param  string $actiontime      An action time parameter that overwrites the current timestamp of the action. The parameter has the format "dd_MM_yyyy_HH_mm_ss".
-	 * @param  string $itemtype        An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used. 
+	 * @param  string $itemtype        An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used.
 	 * @param  string $sessionid       A session ID of a user.
-	 * @return array The decoded JSON response                  
+	 * @return array The decoded JSON response
 	 */
 	public function rate($itemid, $ratingvalue, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
 	{
 		// Check that the $ratingvalue as got the expected format
-		if (!is_numeric($ratingvalue) OR $ratingvalue > 10 OR $ratingvalue < 1)
+		if ( ! is_numeric($ratingvalue) OR $ratingvalue > 10 OR $ratingvalue < 1)
 			throw new \InvalidArgumentException("The rating value should be between 1 and 10.", 1);
-			
+
 		if (is_null($sessionid))
 			$sessionid = Session::getId();
 
@@ -127,12 +127,12 @@ class Easyrec {
 	 * @param  string $userid          A user ID.
 	 * @param  string $itemimageurl    An optional item image URL that links to an imagine of the item. Please give an absolute path.
 	 * @param  string $actiontime      An action time parameter that overwrites the current timestamp of the action. The parameter has the format "dd_MM_yyyy_HH_mm_ss".
-	 * @param  string $itemtype        An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used. 
+	 * @param  string $itemtype        An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used.
 	 * @param  string $sessionid       A session ID of a user.
-	 * @return array The decoded JSON response                  
+	 * @return array The decoded JSON response
 	 */
 	public function sendAction($itemid, $itemdescription, $itemurl, $actiontype, $actionvalue = null, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
-	{			
+	{
 		if (is_null($sessionid))
 			$sessionid = Session::getId();
 
@@ -146,10 +146,10 @@ class Easyrec {
 	}
 
 	/*
-	* RECOMMENDATIONS 
+	* RECOMMENDATIONS
 	* --------------------
 	*/
-	
+
 	/**
 	 * General method used to hit a recommendation endpoint of the API
 	 * @param  string $endpoint The name of the API endpoint
@@ -165,7 +165,7 @@ class Easyrec {
 	private function abstractRecommendationEndpoint($endpoint, $itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = false)
 	{
 		// Check that $numberOfResults has got the expected format
-		if (!is_numeric($numberOfResults) OR $numberOfResults < 0)
+		if ( ! is_numeric($numberOfResults) OR $numberOfResults < 0)
 			throw new \InvalidArgumentException("The number of results should be at least 1.", 1);
 
 		// Can't currently retrieve more than 15 results
@@ -173,7 +173,7 @@ class Easyrec {
 
 		foreach (['itemid', 'userid', 'numberOfResults', 'itemtype', 'requesteditemtype', 'withProfile'] as $param)
 			$this->setQueryParam($param, $$param);
-		
+
 		// Set the endpoint name and send the request
 		$this->setEndpoint($endpoint);
 
@@ -184,7 +184,7 @@ class Easyrec {
 	 * @see abstractRecommendationEndpoint
 	 */
 	public function usersAlsoViewed($itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = false)
-	{	
+	{
 		return $this->abstractRecommendationEndpoint('otherusersalsoviewed', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
 	}
 
@@ -216,7 +216,7 @@ class Easyrec {
 	public function recommendationsForUser($userid, $numberOfResults = 10, $requesteditemtype = null, $actiontype = "VIEW", $withProfile = false)
 	{
 		// Check that $numberOfResults has got the expected format
-		if (!is_numeric($numberOfResults) OR $numberOfResults < 0)
+		if ( ! is_numeric($numberOfResults) OR $numberOfResults < 0)
 			throw new \InvalidArgumentException("The number of results should be at least 1.", 1);
 
 		// Can't currently retrieve more than 15 results
@@ -224,10 +224,10 @@ class Easyrec {
 
 		foreach (['userid', 'numberOfResults', 'requesteditemtype', 'actiontype', 'withProfile'] as $param)
 			$this->setQueryParam($param, $$param);
-		
+
 		// Set the endpoint name and send the request
 		$this->setEndpoint('recommendationsforuser');
-		
+
 		return $this->sendRequest();
 	}
 
@@ -242,7 +242,7 @@ class Easyrec {
 	public function actionHistoryForUser($userid, $numberOfResults = 10, $requesteditemtype = null, $actiontype = null)
 	{
 		// Check that $numberOfResults has got the expected format
-		if (!is_numeric($numberOfResults) OR $numberOfResults < 0)
+		if ( ! is_numeric($numberOfResults) OR $numberOfResults < 0)
 			throw new \InvalidArgumentException("The number of results should be at least 1.", 1);
 
 		// Can't currently retrieve more than 15 results
@@ -250,15 +250,15 @@ class Easyrec {
 
 		foreach (['userid', 'numberOfResults', 'requesteditemtype', 'actiontype'] as $param)
 			$this->setQueryParam($param, $$param);
-		
+
 		// Set the endpoint name and send the request
 		$this->setEndpoint('actionhistoryforuser');
-		
+
 		return $this->sendRequest();
 	}
 
 	/*
-	* RANKINGS 
+	* RANKINGS
 	* --------------------
 	*/
 
@@ -276,19 +276,19 @@ class Easyrec {
 	private function abstractCommunityEndpoint($endpoint, $numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
 	{
 		// Check that $numberOfResults has got the expected format
-		if (!is_numeric($numberOfResults) OR $numberOfResults < 0)
+		if ( ! is_numeric($numberOfResults) OR $numberOfResults < 0)
 			throw new \InvalidArgumentException("The number of results should be at least 1.", 1);
 
 		// Can't currently retrieve more than 50 results
 		$numberOfResults = min($numberOfResults, 50);
 
 		// Check that $timeRange has got the expected format
-		if (!in_array($timeRange, ['DAY', 'WEEK', 'MONTH', 'ALL']))
+		if ( ! in_array($timeRange, ['DAY', 'WEEK', 'MONTH', 'ALL']))
 			throw new \InvalidArgumentException("Invalid value for timeRange. Allowed values are DAY, WEEK, MONTH, ALL.", 1);
 
 		foreach (['numberOfResults', 'timeRange', 'requesteditemtype', 'withProfile'] as $param)
 			$this->setQueryParam($param, $$param);
-		
+
 		// Set the endpoint name and send the request
 		$this->setEndpoint($endpoint);
 
@@ -395,11 +395,11 @@ class Easyrec {
 	 */
 	public function retrieveFirstErrorFromResponse()
 	{
-		if (!$this->responseHasError())
+		if ( ! $this->responseHasError())
 			throw new \InvalidArgumentException("Response hasn't got an error");
 
 		$errors = $this->response['error'];
-			
+
 		// Multiple errors?
 		if (array_key_exists(0, $errors))
 			// Retrieve only the first error
@@ -419,10 +419,10 @@ class Easyrec {
 		$endpoint = $this->getEndpoint();
 		if (is_null($endpoint))
 			throw new \InvalidArgumentException("Endpoint name was not set.", 1);
-			
+
 		// Prepare the request
 		$request = $this->httpClient->createRequest('GET', $endpoint, ['query' => $this->queryParams]);
-		
+
 		// Send the request
 		$response = $this->httpClient->send($request);
 
@@ -430,27 +430,34 @@ class Easyrec {
 		$this->setResponse($result = $response->json());
 
 		// Check if we had an error
-		if ($this->responseHasError()) {
-
+		if ($this->responseHasError())
+		{
 			$error = $this->retrieveFirstErrorFromResponse();
 
 			throw new EasyrecException($error['@message'], $error['@code']);
 		}
 
 		// Add a key to the array with a list of all items' ID
-		if ($this->doesEndpointListItems()) {
-			
-			// Check that we have got the expected array
-			if (!is_null($result) AND array_key_exists('recommendeditems', $result)) {			
-				
-				$ids = [];
-				foreach ($result['recommendeditems'] as $items) {
-					foreach ($items as $item) {
-						$ids[] = intval($item['id']);
-					}
-				}
+		if ($this->doesEndpointListItems())
+		{
 
-				$result['listids'] = $ids;
+			// Check that we have got the expected array
+			if ( ! is_null($result) AND array_key_exists('recommendeditems', $result))
+			{
+				// Prevent from iterating over an empty array
+				if (is_array($result['recommendeditems']) AND ! empty($result['recommendeditems']))
+				{
+					$ids = [];
+					foreach ($result['recommendeditems'] as $items)
+					{
+						foreach ($items as $item)
+						{
+							$ids[] = intval($item['id']);
+						}
+					}
+
+					$result['listids'] = $ids;
+				}
 			}
 		}
 
@@ -465,7 +472,7 @@ class Easyrec {
 	private function setQueryParam($key, $value)
 	{
 		// Do not set value if it was null because it was optional
-		if (!is_null($value))
+		if ( ! is_null($value))
 			$this->queryParams[$key] = $value;
 	}
 }
