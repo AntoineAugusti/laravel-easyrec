@@ -1,8 +1,9 @@
 <?php namespace Antoineaugusti\LaravelEasyrec;
 
+use Antoineaugusti\LaravelEasyrec\Exceptions\EasyrecException;
 use GuzzleHttp\Client as HTTPClient;
 use Illuminate\Support\Facades\Session;
-use Antoineaugusti\LaravelEasyrec\Exceptions\EasyrecException;
+use InvalidArgumentException;
 
 class Easyrec {
 
@@ -103,7 +104,7 @@ class Easyrec {
 	{
 		// Check that the $ratingvalue as got the expected format
 		if ( ! is_numeric($ratingvalue) OR $ratingvalue > 10 OR $ratingvalue < 1)
-			throw new \InvalidArgumentException("The rating value should be between 1 and 10.", 1);
+			throw new InvalidArgumentException("The rating value should be between 1 and 10.", 1);
 
 		if (is_null($sessionid))
 			$sessionid = Session::getId();
@@ -166,7 +167,7 @@ class Easyrec {
 	{
 		// Check that $numberOfResults has got the expected format
 		if ( ! is_numeric($numberOfResults) OR $numberOfResults < 0)
-			throw new \InvalidArgumentException("The number of results should be at least 1.", 1);
+			throw new InvalidArgumentException("The number of results should be at least 1.", 1);
 
 		// Can't currently retrieve more than 15 results
 		$numberOfResults = min($numberOfResults, 15);
@@ -217,7 +218,7 @@ class Easyrec {
 	{
 		// Check that $numberOfResults has got the expected format
 		if ( ! is_numeric($numberOfResults) OR $numberOfResults < 0)
-			throw new \InvalidArgumentException("The number of results should be at least 1.", 1);
+			throw new InvalidArgumentException("The number of results should be at least 1.", 1);
 
 		// Can't currently retrieve more than 15 results
 		$numberOfResults = min($numberOfResults, 15);
@@ -243,7 +244,7 @@ class Easyrec {
 	{
 		// Check that $numberOfResults has got the expected format
 		if ( ! is_numeric($numberOfResults) OR $numberOfResults < 0)
-			throw new \InvalidArgumentException("The number of results should be at least 1.", 1);
+			throw new InvalidArgumentException("The number of results should be at least 1.", 1);
 
 		// Can't currently retrieve more than 15 results
 		$numberOfResults = min($numberOfResults, 15);
@@ -277,14 +278,14 @@ class Easyrec {
 	{
 		// Check that $numberOfResults has got the expected format
 		if ( ! is_numeric($numberOfResults) OR $numberOfResults < 0)
-			throw new \InvalidArgumentException("The number of results should be at least 1.", 1);
+			throw new InvalidArgumentException("The number of results should be at least 1.", 1);
 
 		// Can't currently retrieve more than 50 results
 		$numberOfResults = min($numberOfResults, 50);
 
 		// Check that $timeRange has got the expected format
 		if ( ! in_array($timeRange, ['DAY', 'WEEK', 'MONTH', 'ALL']))
-			throw new \InvalidArgumentException("Invalid value for timeRange. Allowed values are DAY, WEEK, MONTH, ALL.", 1);
+			throw new InvalidArgumentException("Invalid value for timeRange. Allowed values are DAY, WEEK, MONTH, ALL.", 1);
 
 		foreach (['numberOfResults', 'timeRange', 'requesteditemtype', 'withProfile'] as $param)
 			$this->setQueryParam($param, $$param);
@@ -396,7 +397,7 @@ class Easyrec {
 	public function retrieveFirstErrorFromResponse()
 	{
 		if ( ! $this->responseHasError())
-			throw new \InvalidArgumentException("Response hasn't got an error");
+			throw new InvalidArgumentException("Response hasn't got an error");
 
 		$errors = $this->response['error'];
 
@@ -418,7 +419,7 @@ class Easyrec {
 	{
 		$endpoint = $this->getEndpoint();
 		if (is_null($endpoint))
-			throw new \InvalidArgumentException("Endpoint name was not set.", 1);
+			throw new InvalidArgumentException("Endpoint name was not set.", 1);
 
 		// Prepare the request
 		$request = $this->httpClient->createRequest('GET', $endpoint, ['query' => $this->queryParams]);
