@@ -444,8 +444,7 @@ class Easyrec {
 			if (!is_null($result) AND array_key_exists('recommendeditems', $result)) {			
 				
 				$ids = [];
-                if($result['recommendeditems'])
-                {
+                if ($result['recommendeditems']) {
                     foreach ($result['recommendeditems'] as $items) {
                         foreach ($items as $item) {
                             $ids[] = intval($item['id']);
