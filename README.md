@@ -47,7 +47,7 @@ You can register the Easyrec facade in the `aliases` key of your `config/app.php
 
 #### Looking for a Laravel 4 compatible version?
 
-Checkout the [0.5.3 version](https://github.com/AntoineAugusti/laravel-easyrec/releases/tag/v0.5.3), installable by requiring `"antoineaugusti/laravel-easyrec": "0.5.3"`. You can also checkout the `laravel-4` branch.
+Checkout the [0.5.4 version](https://github.com/AntoineAugusti/laravel-easyrec/releases/tag/v0.5.4), installable by requiring `"antoineaugusti/laravel-easyrec": "0.5.4"`. You can also checkout the `laravel-4` branch.
 
 
 ## Configuration
